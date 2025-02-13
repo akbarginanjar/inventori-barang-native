@@ -1,0 +1,32 @@
+--------------Addition--------------
+@(Data Konsumen)
+Kode Konsumen
+Nama Konsumen
+Produk
+Tanggal
+Jumlah
+Harga
+Total
+Keterangan
+
+@(Produksi)
+Bahan - Hasil = Waste
+kg(harga) - kg(harga) = kg(harga)
+kg(harga) - kg(harga) = kg(harga)
+kg(harga) - kg(harga) = kg(harga)
+kg(harga) - kg(harga) = kg(harga) @Total kg(Total Harga)
+
+---------------Revisi--------------
+#(Barang Keluar)
++Data Konsumen
+Tujuan -> Keterangan(Lunas/Piutang)
+
+#(Barang Masuk)
++Harga
++Total Harga
+
+#(Stok Gudang/Data Barang)
++Harga
++Total Harga
+
+
