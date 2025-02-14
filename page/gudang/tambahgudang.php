@@ -135,6 +135,8 @@ $jumlah = 0;
 						$jenis_barang = $pecah_jenis[1];
 
 						$jumlah = $_POST['jumlah'];
+						$harga_rata = 0;
+						$total_nilai_stok = 0;
 
 
 
@@ -150,27 +152,27 @@ $jumlah = 0;
 
 
 
-						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang, jenis_barang, jumlah, satuan ) values('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan')");
+						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang, jenis_barang, jumlah, satuan, harga_rata, total_nilai_stok ) values('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan', '$harga_rata', '$total_nilai_stok')");
 
 						if ($sql) {
 					?>
 
-<script type="text/javascript">
-											Swal.fire({
-												toast: true,
-												position: "top-end",
-												icon: "success",
-												title: "Data berhasil disimpan!",
-												showConfirmButton: false,
-												timer: 3000,
-												timerProgressBar: true
-											});
-									
-											// Tunggu 3 detik sebelum redirect
-											setTimeout(() => {
-												window.location.href = "?page=gudang";
-											}, 1000);
-										</script>
+							<script type="text/javascript">
+								Swal.fire({
+									toast: true,
+									position: "top-end",
+									icon: "success",
+									title: "Data berhasil disimpan!",
+									showConfirmButton: false,
+									timer: 3000,
+									timerProgressBar: true
+								});
+
+								// Tunggu 3 detik sebelum redirect
+								setTimeout(() => {
+									window.location.href = "?page=gudang";
+								}, 1000);
+							</script>
 
 					<?php
 						}

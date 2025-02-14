@@ -6,6 +6,10 @@
   		if (!isNaN(result)) {
   			document.getElementById('jumlah').value = result;
   		}
+  		var harga = document.getElementById('harga_satuan').value;
+  		var total = harga * jumlahmasuk;
+  		document.getElementById('total_harga').value = total;
+
   	}
   </script>
 
@@ -15,6 +19,7 @@
 	$no = mysqli_query($koneksi, "select id_transaksi from barang_masuk order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
 	$kode = $idtran['id_transaksi'];
+
 
 
 	$urut = substr($kode, 8, 3);
@@ -34,6 +39,25 @@
 
 	$tanggal_masuk = date("Y-m-d");
 
+	function firstBarang($kode_barang)
+	{
+		$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+		// Query dengan prepared statement
+		$sql = "SELECT * FROM gudang WHERE kode_barang = ? LIMIT 1";
+		$stmt = $koneksi->prepare($sql);
+		$stmt->bind_param("s", $kode_barang); // "s" untuk string
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		// Ambil satu data pertama
+		$row = $result->fetch_assoc();
+
+		// Tutup koneksi
+		$stmt->close();
+		$koneksi->close();
+
+		return $row; // Return null jika tidak ada data
+	}
 
 	?>
 
@@ -103,17 +127,24 @@
   						<div class="form-group">
   							<div class="form-line">
   								<input readonly="readonly" name="jumlah" id="jumlah" type="number" class="form-control">
-
-
   							</div>
   						</div>
 
   						<div class="tampung1"></div>
 
-						  <label for="">Nominal</label>
+  						<label for="">Harga Satuan</label>
   						<div class="form-group">
   							<div class="form-line">
-  								<input type="text" name="nominal" id="nominal" class="form-control" />
+  								<input type="number" name="harga_satuan" id="harga_satuan" onkeyup="sum()" class="form-control" value="0" />
+  							</div>
+  						</div>
+
+  						<label for="jumlah">Total Harga</label>
+  						<div class="form-group">
+  							<div class="form-line">
+  								<input readonly="readonly" name="total_harga" id="total_harga" type="number" class="form-control">
+
+
   							</div>
   						</div>
 
@@ -165,35 +196,39 @@
 							$nama_supplier = $pecah_nama[0];
 
 							$satuan = $_POST['satuan'];
+							$harga_satuan = $_POST['harga_satuan'];
+							$total_harga = $_POST['total_harga'];
+							$sql = $koneksi->query("insert into barang_masuk  (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, pengirim, harga_satuan, total_harga) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim', '$harga_satuan', '$total_harga')");
 
-
-
-
-
-							$sql = $koneksi->query("insert into barang_masuk (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, pengirim) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim')");
-
-
-
-
-
-							if ($sql) {
+							// Update Gudang
+							$newjumlah = $_POST['jumlah'];
+							$gudang = firstBarang($kode_barang);
+							if ($gudang['jumlah'] == 0) {
+								$harga_rata = $total_harga / $jumlah;
+								$total_nilai_stok = $harga_rata * $jumlah;
+							} else {
+								$harga_rata = round(($gudang['total_nilai_stok'] + $total_harga) / ($gudang['jumlah'] + $jumlah));
+								$total_nilai_stok = round($harga_rata * ($gudang['jumlah'] + $jumlah));
+							}
+							$sql2 = $koneksi->query(" UPDATE gudang SET jumlah = '$newjumlah', harga_rata = '$harga_rata', total_nilai_stok = '$total_nilai_stok' WHERE kode_barang = '$kode_barang'");
+							if ($sql && $sql2) {
 						?>
   							<script type="text/javascript">
-											Swal.fire({
-												toast: true,
-												position: "top-end",
-												icon: "success",
-												title: "Data berhasil disimpan!",
-												showConfirmButton: false,
-												timer: 3000,
-												timerProgressBar: true
-											});
-									
-											// Tunggu 3 detik sebelum redirect
-											setTimeout(() => {
-												window.location.href = "?page=barangmasuk";
-											}, 1000);
-										</script>
+  								Swal.fire({
+  									toast: true,
+  									position: "top-end",
+  									icon: "success",
+  									title: "Data berhasil disimpan!",
+  									showConfirmButton: false,
+  									timer: 3000,
+  									timerProgressBar: true
+  								});
+
+  								// Tunggu 3 detik sebelum redirect
+  								setTimeout(() => {
+  									window.location.href = "?page=barangmasuk";
+  								}, 1000);
+  							</script>
   					<?php
 							}
 						}
