@@ -3,6 +3,12 @@ $query = $koneksi->query("SELECT SUM(total_harga) AS total FROM barang_masuk");
 
 $row = $query->fetch_assoc();
 $total = $row['total'];
+
+if ($_SESSION['admin']) {
+  $user = $_SESSION['admin'];
+}
+$sql = $koneksi->query("select * from users where id='$user'");
+$dataUser = $sql->fetch_assoc();
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -11,7 +17,11 @@ $total = $row['total'];
   <div class="card shadow mb-4">
     <div class="card-header py-3" style="display: flex; justify-content: space-between;">
       <h6 class="m-0 font-weight-bold text-primary">Barang Masuk</h6>
+      <?php
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
+              ?>
       <a href="?page=barangmasuk&aksi=tambahbarangmasuk" class="btn btn-primary">Tambah Barang Masuk</a>
+    <?php } ?>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -28,8 +38,11 @@ $total = $row['total'];
               <th>Satuan Barang</th>
               <th>Harga Satuan</th>
               <th>Total Harga</th>
+              <?php
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
+              ?>
               <th>Pengaturan</th>
-
+<?php }?>
             </tr>
           </thead>
 
@@ -58,12 +71,15 @@ $total = $row['total'];
                 <td><?php echo number_format($data['harga_satuan'], 0, '', '.') ?></td>
                 <td><?php echo number_format($data['total_harga'], 0, '', '.') ?></td>
 
-
+                <?php
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
+              ?>
                 <td>
 
                   <a href="javascript:void(0);"
                     onclick="confirmDelete('<?php echo $data['id_transaksi']; ?>')" class="btn btn-danger">Hapus</a>
                 </td>
+                <?php } ?>
               </tr>
             <?php } ?>
 

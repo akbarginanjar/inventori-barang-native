@@ -31,8 +31,8 @@ $total = $row['total'];
         }
         ?></h6>
       <?php
-      if ($dataUser['level'] != 'marketing') {
-      ?>
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
+              ?>
         <a href="?page=barangkeluar&aksi=tambahbarangkeluar" class="btn btn-primary">Tambah Barang Keluar</a>
       <?php } ?>
     </div>
@@ -58,7 +58,7 @@ $total = $row['total'];
                 <th>Fee Marketing</th>
               <?php } ?>
               <?php
-              if ($dataUser['level'] != 'marketing') {
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
               ?>
                 <th>Pengaturan</th>
               <?php } ?>
@@ -98,8 +98,8 @@ $total = $row['total'];
                   <td><?php echo number_format($data['fee_marketing'], 0, '', '.') ?></td>
                 <?php } ?>
                 <?php
-                if ($dataUser['level'] != 'marketing') {
-                ?>
+              if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
+              ?>
                   <td>
 
                     <a href="javascript:void(0);"

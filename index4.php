@@ -92,6 +92,16 @@ if (empty($_SESSION['keuangan'])) {
           <i class="fas fa-fw fa-box"></i>
           <span>Stok Barang</span></a>
       </li>
+      <li class="nav-item <?php echo ($current_page == 'barangmasuk') ? 'active' : ''; ?>">
+        <a class="nav-link" href="?page=barangmasuk">
+          <i class="fa-solid fa-download"></i>
+          <span>Barang Masuk</span></a>
+      </li>
+      <li class="nav-item <?php echo ($current_page == 'barangkeluar') ? 'active' : ''; ?>">
+        <a class="nav-link" href="?page=barangkeluar">
+          <i class="fa-solid fa-upload"></i>
+          <span>Barang Keluar</span></a>
+      </li>
       <li class="nav-item <?php echo ($current_page == 'laba') ? 'active' : ''; ?>">
         <a class="nav-link" href="?page=laba">
           <i class="fa-solid fa-percent"></i>
