@@ -73,9 +73,9 @@ $total_stok = $row['total_stok'];
                 <?php
                 if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
                 ?>
-                  <td>
+                  <td class="d-flex">
 
-                    <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-success">Ubah</a>
+                    <a href="?page=gudang&aksi=ubahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-success mr-1">Ubah</a>
                     <a href="javascript:void(0);"
                       onclick="confirmDelete('<?php echo $data['kode_barang']; ?>')" class="btn btn-danger">Hapus</a>
                   </td>

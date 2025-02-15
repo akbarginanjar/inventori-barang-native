@@ -18,26 +18,30 @@ $laba = $total_jual - ($total_beli - $total_stok);
 ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">Laba</h2>
-    <table class="table table-bordered">
-        <tbody>
-            <tr>
-                <th>Total Penjualan</th>
-                <td>Rp. <?= number_format($total_jual, 0, '', '.') ?></td>
-            </tr>
-            <tr>
-                <th>Total Pembelian</th>
-                <td>Rp. <?= number_format($total_beli, 0, '', '.') ?></td>
-            </tr>
-            <tr>
-                <th>Total Nilai Stok Gudang</th>
-                <td>Rp. <?= number_format($total_stok, 0, '', '.') ?> </td>
-            </tr>
-            <tr class="table-success">
-                <th>Laba</th>
-                <td>Rp. <?= number_format($laba, 0, '', '.') ?></td>
-            </tr>
-        </tbody>
-    </table>
+    <h2 class="text-primary">Laba</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered" style="color: black;">
+                <tbody>
+                    <tr>
+                        <th>Total Penjualan</th>
+                        <td>Rp. <?= number_format($total_jual, 0, '', '.') ?></td>
+                    </tr>
+                    <tr>
+                        <th>Total Pembelian</th>
+                        <td>Rp. <?= number_format($total_beli, 0, '', '.') ?></td>
+                    </tr>
+                    <tr>
+                        <th>Total Nilai Stok Gudang</th>
+                        <td>Rp. <?= number_format($total_stok, 0, '', '.') ?> </td>
+                    </tr>
+                    <tr class="table-success">
+                        <th>Laba</th>
+                        <td>Rp. <?= number_format($laba, 0, '', '.') ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
