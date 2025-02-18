@@ -356,6 +356,9 @@ if (empty($_SESSION['gudang'])) {
               if ($aksi == "hapusbarangkeluar") {
                 include "page/barangkeluar/hapusbarangkeluar.php";
               }
+              if ($aksi == "invoice") {
+                include "page/barangkeluar/invoice.php";
+              }
             }
 
 

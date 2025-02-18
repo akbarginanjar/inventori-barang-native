@@ -167,7 +167,7 @@
   						<div class="form-group">
   							<div class="form-line">
   								<select name="id_marketing" class="form-control" />
-  								<option value="">Tanpa Marketing</option>
+  								<option value="0">Tanpa Marketing</option>
   								<?php
 
 									$sql = $koneksi->query("select * from users where level='marketing'");
@@ -238,15 +238,15 @@
 							} else {
 								$newjumlah = $_POST['total'];
 								$gudang = firstBarang($kode_barang);
-								if ($id_marketing > 0) {
+								if ($id_marketing != '0') {
 									$laba_kotor = round(($jumlah * $harga_satuan) - ($jumlah * $gudang['harga_rata']));
 									$fee_marketing = ($laba_kotor * 30) / 100;
+									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, nama_konsumen, no_hp, harga_satuan, total_harga, jatuh_tempo, id_marketing, fee_marketing) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$nama_konsumen', '$no_hp', '$harga_satuan', '$total_harga', '$jatuh_tempo', '$id_marketing', '$fee_marketing')");
 								} else {
-									$id_marketing = null;
-									$fee_marketing = null;
+									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, nama_konsumen, no_hp, harga_satuan, total_harga, jatuh_tempo) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$nama_konsumen', '$no_hp', '$harga_satuan', '$total_harga', '$jatuh_tempo')");
 								}
 
-								$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, nama_konsumen, no_hp, harga_satuan, total_harga, jatuh_tempo, id_marketing, fee_marketing) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$nama_konsumen', '$no_hp', '$harga_satuan', '$total_harga', '$jatuh_tempo', '$id_marketing', '$fee_marketing')");
+
 
 								$id_barang_keluar = $koneksi->insert_id;
 
