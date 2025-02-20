@@ -31,18 +31,15 @@ $dataUser = $sql->fetch_assoc();
               <th>No</th>
               <th>Id Transaksi</th>
               <th>Tanggal Masuk</th>
-              <th>Kode Barang</th>
               <th>Nama Barang</th>
               <th>Pengirim</th>
-              <th>Jumlah Masuk</th>
-              <th>Satuan Barang</th>
-              <th>Harga Satuan</th>
-              <th>Total Harga</th>
               <?php
               if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
               ?>
-              <th>Pengaturan</th>
-<?php }?>
+              <th></th>
+              <?php } else {?>
+                <th></th>
+                <?php }?>
             </tr>
           </thead>
 
@@ -60,24 +57,26 @@ $dataUser = $sql->fetch_assoc();
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $data['id_transaksi'] ?></td>
                 <td><?php echo $data['tanggal'] ?></td>
-                <td><?php echo $data['kode_barang'] ?></td>
-                <td><?php echo $data['nama_barang'] ?></td>
-
+                <td><?php echo $data['nama_barang'] ?>, Daging, Kepala</td>
                 <td><?php echo $data['pengirim'] ?></td>
-
-
-                <td><?php echo $data['jumlah'] ?></td>
-                <td><?php echo $data['satuan'] ?></td>
-                <td><?php echo number_format($data['harga_satuan'], 0, '', '.') ?></td>
-                <td><?php echo number_format($data['total_harga'], 0, '', '.') ?></td>
 
                 <?php
               if ($dataUser['level'] != 'marketing' && $dataUser['level'] != 'keuangan') {
               ?>
                 <td>
-
+                <a class="btn btn-warning" style="color:black;" data-toggle="modal" data-target="#detailBarang">
+                  Detail Barang
+                </a>
                   <a href="javascript:void(0);"
-                    onclick="confirmDelete('<?php echo $data['id_transaksi']; ?>')" class="btn btn-danger">Hapus</a>
+                    onclick="confirmDelete('<?php echo $data['id_transaksi']; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+                <?php } else { ?>
+                  <td>
+                <a class="btn btn-warning" style="color:black;" data-toggle="modal" data-target="#detailBarang">
+                  Detail Barang
+                </a>
+                  <a href="javascript:void(0);"
+                    onclick="confirmDelete('<?php echo $data['id_transaksi']; ?>')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
                 <?php } ?>
               </tr>
@@ -94,6 +93,83 @@ $dataUser = $sql->fetch_assoc();
   </div>
 
 </div>
+
+<div class="modal fade" id="detailBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Barang</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                <div class="mb-0 text-xs">ID Transaksi</div>
+                <h6 class="mb-0" style="color: black;"> INV03249302</h6>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <div class="mb-0 text-xs">Tanggal Masuk</div>
+                <h6 class="mb-0" style="color: black;"> 23-02-2023</h6>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                <div class="mb-0 text-xs">Pengirim</div>
+                <h6 class="mb-0" style="color: black;">Akbar Ginanjar</h6>
+              </div>
+            </div>
+          </div>
+          <table class="table table-bordered" style="color: black;">
+            <thead style="background: whitesmoke;">
+              <tr>
+                <th>Kode Barang</th>
+                <th>Nama Barang</th>
+                <th>Jumlah Masuk</th>
+                <th>Satuan Barang</th>
+                <th>Harga Satuan</th>
+                <th>Total Harga</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BRG-23912329</td>
+                <td>Lidah</td>
+                <td>20</td>
+                <td>Kg</td>
+                <td>200.000</td>
+                <td>400.000</td>
+              </tr>
+              <tr>
+                <td>BRG-23912329</td>
+                <td>Lidah</td>
+                <td>20</td>
+                <td>Kg</td>
+                <td>200.000</td>
+                <td>400.000</td>
+              </tr>
+              <tr>
+                <td>BRG-23912329</td>
+                <td>Lidah</td>
+                <td>20</td>
+                <td>Kg</td>
+                <td>200.000</td>
+                <td>400.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   function confirmDelete(id) {

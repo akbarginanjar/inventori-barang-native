@@ -21,6 +21,39 @@ $laba = $total_jual - ($total_beli - $total_stok);
     <h2 class="text-primary">Laba</h2>
     <div class="card">
         <div class="card-body">
+        <form action="" method="post">
+              <div class="row form-group">
+                <div class="col-md-3">
+                  <select class="form-control " name="bln">
+                    <option value="1" selected="">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <?php
+                  $now = date('Y');
+                  echo "<select name='thn' class='form-control'>";
+                  for ($a = 2018; $a <= $now; $a++) {
+                    echo "<option value='$a'>$a</option>";
+                  }
+                  echo "</select>";
+                  ?>
+                </div>
+                <input type="submit" class="btn btn-primary" name="submit" value="Tampilkan">
+                <input type="submit" class="btn btn-danger ml-2" name="submit" value="Print PDF">
+              </div>
+            </form>
+            <br>
             <table class="table table-bordered" style="color: black;">
                 <tbody>
                     <tr>

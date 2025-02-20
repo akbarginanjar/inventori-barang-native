@@ -20,18 +20,6 @@ $data = $query->fetch_assoc();
                         <h6 class="mb-0" style="color: black;"> <?= $data['id_transaksi'] ?> </h6>
                     </div>
                     <div class="mb-3">
-                        <div class="mb-0 text-xs">Kode Barang</div>
-                        <h6 class="mb-0" style="color: black;"> <?= $data['kode_barang'] ?> </h6>
-                    </div>
-                    <div class="mb-3">
-                        <div class="mb-0 text-xs">Nama Barang</div>
-                        <h6 class="mb-0" style="color: black;"> <?= $data['nama_barang'] ?> </h6>
-                    </div>
-                    <div class="mb-3">
-                        <div class="mb-0 text-xs">Satuan</div>
-                        <h6 class="mb-0" style="color: black;"> <?= $data['satuan'] ?> </h6>
-                    </div>
-                    <div class="mb-3">
                         <div class="mb-0 text-xs">Tanggal Keluar</div>
                         <h6 class="mb-0" style="color: black;"> <?= date("d-m-Y", strtotime($data['tanggal'])) ?> </h6>
                     </div>
@@ -42,18 +30,6 @@ $data = $query->fetch_assoc();
                 </div>
                 <div class="col-sm">
                     <div class="mb-3">
-                        <div class="mb-0 text-xs">Jumlah</div>
-                        <h6 class="mb-0" style="color: black;"> <?= $data['jumlah'] ?> </h6>
-                    </div>
-                    <div class="mb-3">
-                        <div class="mb-0 text-xs">Harga Satuan</div>
-                        <h6 class="mb-0" style="color: black;"> <?= number_format($data['harga_satuan'], 0, '', '.') ?> </h6>
-                    </div>
-                    <div class="mb-3">
-                        <div class="mb-0 text-xs">Total Harga</div>
-                        <h6 class="mb-0" style="color: black;"> <?= number_format($data['total_harga'], 0, '', '.') ?> </h6>
-                    </div>
-                    <div class="mb-3">
                         <div class="mb-0 text-xs">Nama Konsumen</div>
                         <h6 class="mb-0" style="color: black;"> <?= $data['nama_konsumen'] ?> </h6>
                     </div>
@@ -63,6 +39,36 @@ $data = $query->fetch_assoc();
                     </div>
                 </div>
             </div>
+            <table class="table table-bordered mt-2">
+                <thead style="background: whitesmoke;">
+                    <tr>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Satuan</th>
+                        <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BRG-12039292</td>
+                        <td>Daging</td>
+                        <td>Kg</td>
+                        <td>40</td>
+                        <td>100.000</td>
+                        <td>300.000</td>
+                    </tr>
+                    <tr>
+                        <td>BRG-12039292</td>
+                        <td>Daging</td>
+                        <td>Kg</td>
+                        <td>40</td>
+                        <td>100.000</td>
+                        <td>300.000</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

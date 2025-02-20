@@ -102,8 +102,6 @@ if ($login) {
 	$ketemu = $sql->num_rows;
 	$data = $sql->fetch_assoc();
 
-    var_dump($data['level']);
-
 	if ($ketemu >= 1) {
 		session_start();
 

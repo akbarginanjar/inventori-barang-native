@@ -54,10 +54,10 @@ if (empty($_SESSION['gudang'])) {
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-building"></i>
+        <div class="sidebar-brand-icon">
+        <img src="img/logo-mms.png" width="45px" style="border-radius: 13px; border: 1px solid white;" alt="">
         </div>
-        <div class="sidebar-brand-text mx-2">PT. MMS GROUP</div>
+        <div class="sidebar-brand-text mx-2">Chips Supplier</div>
       </a>
 
       <!-- Divider -->

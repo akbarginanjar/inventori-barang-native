@@ -8,7 +8,7 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 
   </div>
-  <h3>Selamat Datang di Sistem Informasi MMS GROUP</h3>
+  <h3>Selamat Datang di Sistem Informasi Chips Supplier</h3>
   <br></br>
 
   <!-- Content Row -->
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-clipboard-list fa-2x text-black-300"></i>
+              <i class="fas fa-box fa-2x text-black-300"></i>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
 
             </div>
             <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-black-300"></i>
+              <i class="fas fa-smile fa-2x text-black-300"></i>
             </div>
           </div>
         </div>

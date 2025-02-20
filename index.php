@@ -55,10 +55,10 @@ if (empty($_SESSION['admin'])) {
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-building"></i>
+        <div class="sidebar-brand-icon">
+          <img src="img/logo-mms.png" width="45px" style="border-radius: 13px; border: 1px solid white;" alt="">
         </div>
-        <div class="sidebar-brand-text mx-2">PT. MMS GROUP</div>
+        <div class="sidebar-brand-text mx-3 text-left">Chips Supplier</div>
       </a>
 
       <!-- Divider -->
@@ -113,7 +113,26 @@ if (empty($_SESSION['admin'])) {
           <i class="fa-solid fa-upload"></i>
           <span>Barang Keluar</span></a>
       </li>
-
+      <li class="nav-item <?php echo ($current_page == 'gajikaryawan') ? 'active' : ''; ?>">
+            <a class="nav-link" href="?page=gajikaryawan">
+            <i class="fa-solid fa-money-bills"></i>
+              <span>Gaji Karyawan</span></a>
+      </li>
+      <li class="nav-item <?php echo ($current_page == 'cost') ? 'active' : ''; ?>">
+            <a class="nav-link" href="?page=cost">
+            <i class="fa-solid fa-coins"></i>
+              <span>Cost</span></a>
+      </li>
+      <li class="nav-item <?php echo ($current_page == 'feemarketing') ? 'active' : ''; ?>">
+            <a class="nav-link" href="?page=feemarketing">
+            <i class="fa-solid fa-face-smile"></i>
+              <span>Fee Marketing</span></a>
+      </li>
+      <li class="nav-item <?php echo ($current_page == 'laba') ? 'active' : ''; ?>">
+        <a class="nav-link" href="?page=laba">
+          <i class="fa-solid fa-percent"></i>
+          <span>Laba</span></a>
+      </li>
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
@@ -294,6 +313,18 @@ if (empty($_SESSION['admin'])) {
             $page = $_GET['page'];
             $aksi = $_GET['aksi'];
 
+            if ($page == "laba") {
+              if ($aksi == "") {
+                include "page/laba/laba.php";
+              }
+            }
+            
+            if ($page == "feemarketing") {
+              if ($aksi == "") {
+                include "page/barangkeluar/barangkeluar.php";
+              }
+            }
+
             if ($page == "notifikasi") {
               if ($aksi == "") {
                 include "page/notifikasi/notifikasi.php";
@@ -356,6 +387,38 @@ if (empty($_SESSION['admin'])) {
 
               if ($aksi == "hapusjenis") {
                 include "page/jenisbarang/hapusjenis.php";
+              }
+            }
+
+            if ($page == "gajikaryawan") {
+              if ($aksi == "") {
+                include "page/gajikaryawan/gajikaryawan.php";
+              }
+              if ($aksi == "tambahgaji") {
+                include "page/gajikaryawan/tambahgaji.php";
+              }
+              if ($aksi == "ubahgaji") {
+                include "page/gajikaryawan/ubahgaji.php";
+              }
+
+              if ($aksi == "hapusgaji") {
+                include "page/gajikaryawan/hapusgaji.php";
+              }
+            }
+            
+            if ($page == "cost") {
+              if ($aksi == "") {
+                include "page/cost/cost.php";
+              }
+              if ($aksi == "tambahcost") {
+                include "page/cost/tambahcost.php";
+              }
+              if ($aksi == "ubahcost") {
+                include "page/cost/ubahcost.php";
+              }
+
+              if ($aksi == "hapuscost") {
+                include "page/cost/hapuscost.php";
               }
             }
 

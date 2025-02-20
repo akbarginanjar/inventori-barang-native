@@ -54,10 +54,10 @@ if (empty($_SESSION['marketing'])) {
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-building"></i>
+        <div class="sidebar-brand-icon">
+        <img src="img/logo-mms.png" width="45px" style="border-radius: 13px; border: 1px solid white;" alt="">
         </div>
-        <div class="sidebar-brand-text mx-2">PT. MMS GROUP</div>
+        <div class="sidebar-brand-text mx-2">Chips Supplier</div>
       </a>
 
       <!-- Divider -->
@@ -91,8 +91,8 @@ if (empty($_SESSION['marketing'])) {
             <i class="fas fa-fw fa-box"></i>
             <span>Stok Barang</span></a>
           </li>
-          <li class="nav-item <?php echo ($current_page == 'barangkeluar') ? 'active' : ''; ?>">
-            <a class="nav-link" href="?page=barangkeluar">
+          <li class="nav-item <?php echo ($current_page == 'feemarketing') ? 'active' : ''; ?>">
+            <a class="nav-link" href="?page=feemarketing">
             <i class="fa-solid fa-face-smile"></i>
               <span>Fee Marketing</span></a>
             </li>
@@ -224,6 +224,12 @@ if (empty($_SESSION['marketing'])) {
               }
               if ($aksi == "tambahpengguna2") {
                 include "page/pengguna/tambahpengguna2.php";
+              }
+            }
+
+            if ($page == "feemarketing") {
+              if ($aksi == "") {
+                include "page/barangkeluar/barangkeluar.php";
               }
             }
 
