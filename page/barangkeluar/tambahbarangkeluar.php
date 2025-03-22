@@ -1,17 +1,3 @@
-  <script>
-  	function sum() {
-  		var stok = document.getElementById('stok').value;
-  		var jumlahkeluar = document.getElementById('jumlahkeluar').value;
-  		var result = parseInt(stok) - parseInt(jumlahkeluar);
-  		if (!isNaN(result)) {
-  			document.getElementById('total').value = result;
-  		}
-  		var harga = document.getElementById('harga_satuan').value;
-  		var total = harga * jumlahkeluar;
-  		document.getElementById('total_harga').value = total;
-  	}
-  </script>
-
   <?php
 
 
@@ -91,59 +77,6 @@
   							</div>
   						</div>
 
-
-  						<!-- <label for="">Barang</label>
-  						<div class="form-group">
-  							<div class="form-line">
-  								<select name="barang" id="cmb_barang" class="form-control" />
-  								<option value="">-- Pilih Barang --</option>
-  								<?php
-
-									$sql = $koneksi->query("select * from gudang order by kode_barang");
-									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[kode_barang].$data[nama_barang]'>$data[kode_barang] | $data[nama_barang]</option>";
-									}
-									?>
-
-  								</select>
-
-
-  							</div>
-  						</div> -->
-  						<!-- <div class="tampung"></div> -->
-
-  						<!-- <label for="">Jumlah</label>
-  						<div class="form-group">
-  							<div class="form-line">
-  								<input type="text" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()" class="form-control" />
-  							</div>
-  						</div> -->
-
-  						<!-- <label for="total">Total Stok</label>
-  						<div class="form-group">
-  							<div class="form-line">
-  								<input readonly="readonly" name="total" id="total" type="number" class="form-control">
-  							</div>
-  						</div> -->
-
-  						<!-- <div class="tampung1"></div> -->
-
-  						<!-- <label for="">Harga Satuan</label>
-  						<div class="form-group">
-  							<div class="form-line">
-  								<input type="text" name="harga_satuan" id="harga_satuan" onkeyup="sum()" class="form-control" />
-  							</div>
-  						</div> -->
-
-  						<!-- <label for="jumlah">Total Harga</label>
-  						<div class="form-group">
-  							<div class="form-line">
-  								<input readonly="readonly" name="total_harga" id="total_harga" type="number" class="form-control">
-
-
-  							</div>
-  						</div> -->
-
   						<label for="">Nama Konsumen</label>
   						<div class="form-group">
   							<div class="form-line">
@@ -182,30 +115,30 @@
   							</div>
   						</div>
 
-						  <div class="card mb-3">
-							<div class="card-body">
-								<div style="display: flex; justify-content: space-between; align-items: center">
-									<h5 style="color: black;">Data Barang</h5>
-									<a onclick="tambahBarang()" class="btn btn-info text-white mb-2" style="cursor: pointer;">Tambah Barang</a>
-								</div>
-								<table id="barangTable" class="table table-bordered table-hover" style="color: black;">
-								  <thead>
-									  <tr>
-										  <th>No</th>
-										  <th>Barang</th>
-										  <th>Stok</th>
-										  <th>Jumlah</th>
-										  <th>Total Stok</th>
-										  <th>Harga</th>
-										  <th>Total Harga</th>
-										  <th></th>
-									  </tr>
-								  </thead>
-								  <tbody>
-								  </tbody>
-							  </table>
-							</div>
-						</div>
+  						<div class="card mb-3">
+  							<div class="card-body">
+  								<div style="display: flex; justify-content: space-between; align-items: center">
+  									<h5 style="color: black;">Data Barang</h5>
+  									<a onclick="tambahBarang()" class="btn btn-info text-white mb-2" style="cursor: pointer;">Tambah Barang</a>
+  								</div>
+  								<table id="barangTable" class="table table-bordered table-hover" style="color: black;">
+  									<thead>
+  										<tr>
+  											<th>No</th>
+  											<th>Barang</th>
+  											<th>Stok</th>
+  											<th>Jumlah</th>
+  											<th>Total Stok</th>
+  											<th>Harga</th>
+  											<th>Total Harga</th>
+  											<th></th>
+  										</tr>
+  									</thead>
+  									<tbody>
+  									</tbody>
+  								</table>
+  							</div>
+  						</div>
 
 
 
@@ -213,62 +146,108 @@
 
   					</form>
 
-					  <script>
-						let count = 0;
+  					<script>
+  						let count = 0;
 
-						function tambahBarang() {
-							count++;
-							const table = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
-							const row = table.insertRow();
-							
-							const cellNo = row.insertCell(0);
-							const cellBarang = row.insertCell(1);
-							const cellStok = row.insertCell(2);
-							const cellJumlah = row.insertCell(3);
-							const cellTotalStok = row.insertCell(4);
-							const cellHarga = row.insertCell(5);
-							const cellTotalHarga = row.insertCell(6);
-							const cellAksi = row.insertCell(7);
+  						function tambahBarang() {
+  							count++;
+  							const table = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+  							const row = table.insertRow();
 
-							cellNo.innerText = count;
-							cellBarang.innerHTML = `<select name="barang" id="cmb_barang" class="form-control" />
-  								<option value="">-- Pilih Barang --</option>
-  								<?php
+  							const cellNo = row.insertCell(0);
+  							const cellBarang = row.insertCell(1);
+  							const cellStok = row.insertCell(2);
+  							const cellJumlah = row.insertCell(3);
+  							const cellTotalStok = row.insertCell(4);
+  							const cellHarga = row.insertCell(5);
+  							const cellTotalHarga = row.insertCell(6);
+  							const cellAksi = row.insertCell(7);
 
-									$sql = $koneksi->query("select * from gudang order by kode_barang");
-									while ($data = $sql->fetch_assoc()) {
-										echo "<option value='$data[kode_barang].$data[nama_barang]'>$data[kode_barang] | $data[nama_barang]</option>";
-									}
-									?>
+  							cellNo.innerText = count;
+  							cellBarang.innerHTML = `<select name="barang[]" class="form-control barang" required>
+								<option value="">-- Pilih Barang --</option>
+								<?php
+								$sql = $koneksi->query("SELECT * FROM gudang ORDER BY kode_barang");
+								while ($data = $sql->fetch_assoc()) {
+									echo "<option value='{$data['kode_barang']}|{$data['nama_barang']}|{$data['jumlah']}|{$data['satuan']}'>
+											{$data['nama_barang']} |  {$data['kode_barang']} 
+										</option>";
+								}
+								?>
+							</select>`;
 
-  								</select>`;
-							cellStok.innerHTML = `<input readonly="readonly" id="stok" type="number" class="form-control" value="0">`;
-							cellJumlah.innerHTML = `<div class="input-group mb-3">
-								<input type="text" class="form-control" aria-describedby="basic-addon2">
-								<span class="input-group-text" id="basic-addon2">Kg</span>
-								</div>`;
-							cellTotalStok.innerHTML = `<input readonly="readonly" type="number" class="form-control" value="0">`;
-							cellHarga.innerHTML = `<input type="number" class="form-control" value="">`;
-							cellTotalHarga.innerHTML = `<input type="number" class="form-control" value="">`;
-							cellAksi.innerHTML = `<button onclick="hapusBarang(this)" class="btn btn-danger btn-sm">Hapus</button>`;
-						}
+  							cellStok.innerHTML = `<input name="stok[]" readonly type="number" class="form-control stok" value="0">`;
 
-						function hapusBarang(button) {
-							const row = button.parentNode.parentNode;
-							row.parentNode.removeChild(row);
-							updateNomor();
-						}
+  							cellJumlah.innerHTML = `<div class="input-group mb-3">
+								<input type="number" name="jumlahkeluar[]" class="form-control jumlah" min="1" required>
+								<span class="input-group-text satuanLabel"></span>
+								<input type="hidden" class="satuan" name="satuan[]"></input>
+							</div>`;
 
-						function updateNomor() {
-							const table = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
-							const rows = table.getElementsByTagName('tr');
-							count = 0;
-							for (let i = 0; i < rows.length; i++) {
-								rows[i].cells[0].innerText = i + 1;
-								count++;
-							}
-						}
-					</script>
+  							cellTotalStok.innerHTML = `<input name="total_stok[]" readonly type="number" class="form-control total_stok" value="0">`;
+
+  							cellHarga.innerHTML = `<input type="number" name="harga_satuan[]" class="form-control harga" min="1" required>`;
+
+  							cellTotalHarga.innerHTML = `<input name="total_harga[]" readonly type="number" class="form-control total_harga" value="0">`;
+
+  							cellAksi.innerHTML = `<button type="button" onclick="hapusBarang(this)" class="btn btn-danger btn-sm">Hapus</button>`;
+
+  							// Event listener untuk update stok saat barang dipilih
+  							row.querySelector(".barang").addEventListener("change", updateStok);
+
+  							// Event listener untuk menghitung total harga otomatis
+  							row.querySelector(".jumlah").addEventListener("input", hitungTotalHarga);
+  							row.querySelector(".harga").addEventListener("input", hitungTotalHarga);
+  						}
+
+  						// Fungsi update stok berdasarkan barang yang dipilih
+  						function updateStok() {
+  							const row = this.closest("tr");
+  							const selectedValue = this.value; // Ambil value dari dropdown
+  							const stokInput = row.querySelector(".stok");
+  							const satuanInput = row.querySelector(".satuan");
+  							const satuanSpan = row.querySelector(".satuanLabel");
+
+  							if (selectedValue) {
+  								const stok = selectedValue.split("|")[2]; // Ambil stok dari value
+  								const satuan = selectedValue.split("|")[3]; // Ambil satuan dari value
+  								console.log
+  								stokInput.value = stok;
+  								satuanInput.value = satuan;
+  								satuanSpan.innerHTML = satuan;
+  							} else {
+  								stokInput.value = 0;
+  							}
+  						}
+
+  						// Fungsi menghitung total harga otomatis
+  						function hitungTotalHarga() {
+  							const row = this.closest("tr");
+  							const jumlah = row.querySelector(".jumlah").value || 0;
+  							const stok = row.querySelector(".stok").value || 0;
+  							const totalStok = parseInt(stok) - parseInt(jumlah);
+  							row.querySelector(".total_stok").value = totalStok;
+  							const harga = row.querySelector(".harga").value || 0;
+  							const totalHarga = jumlah * harga;
+  							row.querySelector(".total_harga").value = totalHarga;
+  						}
+
+  						function hapusBarang(button) {
+  							const row = button.parentNode.parentNode;
+  							row.parentNode.removeChild(row);
+  							updateNomor();
+  						}
+
+  						function updateNomor() {
+  							const table = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+  							const rows = table.getElementsByTagName('tr');
+  							count = 0;
+  							for (let i = 0; i < rows.length; i++) {
+  								rows[i].cells[0].innerText = i + 1;
+  								count++;
+  							}
+  						}
+  					</script>
 
   					<script>
   						// Ambil elemen input date
@@ -288,28 +267,15 @@
 						if (isset($_POST['simpan'])) {
 							$id_transaksi = $_POST['id_transaksi'];
 							$tanggal = $_POST['tanggal_keluar'];
-
-							$barang = $_POST['barang'];
-							$pecah_barang = explode(".", $barang);
-							$kode_barang = $pecah_barang[0];
-							$nama_barang = $pecah_barang[1];
-							$jumlah = $_POST['jumlahkeluar'];
-
-							$satuan = $_POST['satuan'];
 							$nama_konsumen = $_POST['nama_konsumen'];
 							$no_hp = $_POST['no_hp'];
-
-
-							$total = $_POST['total'];
-							$harga_satuan = $_POST['harga_satuan'];
-							$total_harga = $_POST['total_harga'];
-
-
 							$id_marketing = $_POST['id_marketing'];
 							$jatuh_tempo = $_POST['jatuh_tempo'];
+							$total_harga_barang = array_sum($_POST['total_harga']);
 
-							$sisa2 = $total;
-							if ($sisa2 < 0) {
+							$totalStok = $_POST['total_stok'];
+
+							if (array_filter($totalStok, fn($stok) => $stok < 0)) {
 						?>
 
   							<script type="text/javascript">
@@ -317,47 +283,92 @@
   								window.location.href = "?page=barangkeluar&aksi=tambahbarangkeluar";
   							</script>
 
-  						<?php
+  							<?php
 							} else {
-								$newjumlah = $_POST['total'];
-								$gudang = firstBarang($kode_barang);
-								if ($id_marketing != '0') {
-									$laba_kotor = round(($jumlah * $harga_satuan) - ($jumlah * $gudang['harga_rata']));
-									$fee_marketing = ($laba_kotor * 30) / 100;
-									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, nama_konsumen, no_hp, harga_satuan, total_harga, jatuh_tempo, id_marketing, fee_marketing) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$nama_konsumen', '$no_hp', '$harga_satuan', '$total_harga', '$jatuh_tempo', '$id_marketing', '$fee_marketing')");
-								} else {
-									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, kode_barang, nama_barang, jumlah, satuan, nama_konsumen, no_hp, harga_satuan, total_harga, jatuh_tempo) values('$id_transaksi','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$nama_konsumen', '$no_hp', '$harga_satuan', '$total_harga', '$jatuh_tempo')");
+
+
+								$barang = $_POST['barang'];
+								$jumlah = $_POST['jumlahkeluar'];
+								$harga_satuan = $_POST['harga_satuan'];
+								$total_laba_kotor = 0;
+
+								// Hitung total laba kotor
+								foreach ($jumlah as $index => $jml) {
+									$pecah_barang = explode("|", $barang[$index]);
+									$kode_barang = $pecah_barang[0];
+									$gudang = firstBarang($kode_barang);
+									$laba_kotor = ($jml * $harga_satuan[$index]) - ($jml * $gudang['harga_rata']);
+									$total_laba_kotor += $laba_kotor;
 								}
 
+								if ($id_marketing != '0') {
+									$fee_marketing = ($total_laba_kotor * 30) / 100;
+									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, nama_konsumen, no_hp, total_harga_barang, jatuh_tempo, id_marketing, fee_marketing) values('$id_transaksi','$tanggal','$nama_konsumen', '$no_hp', '$total_harga_barang', '$jatuh_tempo', '$id_marketing', '$fee_marketing')");
+								} else {
+									$sql = $koneksi->query("insert into barang_keluar (id_transaksi, tanggal, nama_konsumen, no_hp, total_harga_barang, jatuh_tempo) values('$id_transaksi','$tanggal','$nama_konsumen', '$no_hp', '$total_harga_barang', '$jatuh_tempo')");
+								}
+
+								if ($sql) {
+									$id_barang_keluar = $koneksi->insert_id; // Ambil ID yang baru saja dimasukkan
+
+									$barang = $_POST['barang']; // Array barang
+									$jumlah = $_POST['jumlahkeluar'];
+									$satuan = $_POST['satuan'];
+									$harga_satuan = $_POST['harga_satuan'];
+									$total_harga = $_POST['total_harga'];
+
+									$totalData = count($barang); // Hitung jumlah barang yang dikirim
+
+									for ($i = 0; $i < $totalData; $i++) {
+
+										if (!empty($barang[$i]) && !empty($jumlah[$i]) && !empty($harga_satuan[$i])) {
+
+											$pecah_barang = explode("|", $barang[$i]); // Pisahkan kode_barang dan nama_barang
+											$kode_barang = $pecah_barang[0];
+											$nama_barang = $pecah_barang[1];
+
+											$jumlahData = intval($jumlah[$i]);
+											$hargaSatuanData = intval($harga_satuan[$i]);
+											$totalHargaData = intval($total_harga[$i]);
 
 
-								$id_barang_keluar = $koneksi->insert_id;
+											// Simpan ke tabel barang_keluar_items dengan id_barang_keluar
+											$sql2 = $koneksi->query("INSERT INTO barang_keluar_items 
+											(id_barang_keluar, kode_barang, nama_barang, jumlah, satuan, harga_satuan, total_harga) 
+											VALUES ('$id_barang_keluar', '$kode_barang', '$nama_barang', '$jumlahData', '$satuan[$i]', '$hargaSatuanData', '$totalHargaData')");
 
-								$sql2 = $koneksi->query("INSERT INTO notifikasi (id_barang_keluar, jatuh_tempo) VALUES ('$id_barang_keluar', '$jatuh_tempo')");
+											$sql3 = $koneksi->query("INSERT INTO notifikasi (id_barang_keluar, jatuh_tempo) VALUES ('$id_barang_keluar', '$jatuh_tempo')");
 
-								$total_nilai_stok = round($gudang['harga_rata'] * $newjumlah);
-								$sql3 = $koneksi->query(" UPDATE gudang SET jumlah = '$newjumlah', total_nilai_stok = '$total_nilai_stok' WHERE kode_barang = '$kode_barang'");
+											$gudang = firstBarang($kode_barang);
+											$newjumlah = $_POST['total_stok'];
+											$total_nilai_stok = round($gudang['harga_rata'] * $newjumlah[$i]);
+											$sql4 = $koneksi->query("UPDATE gudang SET jumlah = '$newjumlah[$i]', total_nilai_stok = '$total_nilai_stok' WHERE kode_barang = '$kode_barang'");
+										}
+									}
 
+									if ($sql2 && $sql3 && $sql4) {
+								?>
+  									<script type="text/javascript">
+  										let id = '<?= $id_transaksi ?>'
 
-							?>
+  										Swal.fire({
+  											toast: true,
+  											position: "top-end",
+  											icon: "success",
+  											title: "Data berhasil disimpan!",
+  											showConfirmButton: false,
+  											timer: 3000,
+  											timerProgressBar: true
+  										});
 
-
-  							<script type="text/javascript">
-  								Swal.fire({
-  									toast: true,
-  									position: "top-end",
-  									icon: "success",
-  									title: "Data berhasil disimpan!",
-  									showConfirmButton: false,
-  									timer: 3000,
-  									timerProgressBar: true
-  								});
-
-  								// Tunggu 3 detik sebelum redirect
-  								setTimeout(() => {
-  									window.location.href = "?page=barangkeluar";
-  								}, 1000);
-  							</script>
+  										setTimeout(() => {
+  											window.location.href = "?page=barangkeluar&aksi=invoice&id_transaksi=" + id;
+  										}, 1000);
+  									</script>
+  							<?php
+									}
+								}
+								?>
   					<?php
 							}
 						}

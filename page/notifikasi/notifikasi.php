@@ -3,7 +3,15 @@
 
     <!-- Notifikasi Sukses -->
     <?php
-    $query = $koneksi->query("select notifikasi.id, notifikasi.jatuh_tempo, barang_keluar.nama_barang, barang_keluar.nama_konsumen from notifikasi inner join barang_keluar on notifikasi.id_barang_keluar = barang_keluar.id");
+    $query = $koneksi->query("
+    SELECT notifikasi.id, notifikasi.jatuh_tempo, 
+           GROUP_CONCAT(barang_keluar_items.nama_barang SEPARATOR ', ') AS nama_barang, 
+           barang_keluar.nama_konsumen 
+    FROM notifikasi
+    INNER JOIN barang_keluar ON notifikasi.id_barang_keluar = barang_keluar.id
+    INNER JOIN barang_keluar_items ON barang_keluar.id = barang_keluar_items.id_barang_keluar
+    GROUP BY notifikasi.id
+");
 
     while ($data = $query->fetch_assoc()) {
     ?>

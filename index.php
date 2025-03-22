@@ -114,19 +114,19 @@ if (empty($_SESSION['admin'])) {
           <span>Barang Keluar</span></a>
       </li>
       <li class="nav-item <?php echo ($current_page == 'gajikaryawan') ? 'active' : ''; ?>">
-            <a class="nav-link" href="?page=gajikaryawan">
-            <i class="fa-solid fa-money-bills"></i>
-              <span>Gaji Karyawan</span></a>
+        <a class="nav-link" href="?page=gajikaryawan">
+          <i class="fa-solid fa-money-bills"></i>
+          <span>Gaji Karyawan</span></a>
       </li>
       <li class="nav-item <?php echo ($current_page == 'cost') ? 'active' : ''; ?>">
-            <a class="nav-link" href="?page=cost">
-            <i class="fa-solid fa-coins"></i>
-              <span>Cost</span></a>
+        <a class="nav-link" href="?page=cost">
+          <i class="fa-solid fa-coins"></i>
+          <span>Cost</span></a>
       </li>
       <li class="nav-item <?php echo ($current_page == 'feemarketing') ? 'active' : ''; ?>">
-            <a class="nav-link" href="?page=feemarketing">
-            <i class="fa-solid fa-face-smile"></i>
-              <span>Fee Marketing</span></a>
+        <a class="nav-link" href="?page=feemarketing">
+          <i class="fa-solid fa-face-smile"></i>
+          <span>Fee Marketing</span></a>
       </li>
       <li class="nav-item <?php echo ($current_page == 'laba') ? 'active' : ''; ?>">
         <a class="nav-link" href="?page=laba">
@@ -174,6 +174,7 @@ if (empty($_SESSION['admin'])) {
             <a class="collapse-item" href="?page=laporan_gudang">Laporan Stok Gudang</a>
             <a class="collapse-item" href="?page=laporan_barangmasuk">Laporan Barang Masuk</a>
             <a class="collapse-item" href="?page=laporan_barangkeluar">Laporan Barang Keluar</a>
+            <a class="collapse-item" href="?page=laporan_feemarketing">Laporan Fee Marketing</a>
           </div>
         </div>
       </li>
@@ -318,7 +319,7 @@ if (empty($_SESSION['admin'])) {
                 include "page/laba/laba.php";
               }
             }
-            
+
             if ($page == "feemarketing") {
               if ($aksi == "") {
                 include "page/barangkeluar/barangkeluar.php";
@@ -405,7 +406,7 @@ if (empty($_SESSION['admin'])) {
                 include "page/gajikaryawan/hapusgaji.php";
               }
             }
-            
+
             if ($page == "cost") {
               if ($aksi == "") {
                 include "page/cost/cost.php";
@@ -489,6 +490,10 @@ if (empty($_SESSION['admin'])) {
               if ($aksi == "hapusbarangkeluar") {
                 include "page/barangkeluar/hapusbarangkeluar.php";
               }
+
+              if ($aksi == "invoice") {
+                include "page/barangkeluar/invoice.php";
+              }
             }
 
 
@@ -511,6 +516,11 @@ if (empty($_SESSION['admin'])) {
             if ($page == "laporan_barangkeluar") {
               if ($aksi == "") {
                 include "page/laporan/laporan_barangkeluar.php";
+              }
+            }
+            if ($page == "laporan_feemarketing") {
+              if ($aksi == "") {
+                include "page/laporan/laporan_feemarketing.php";
               }
             }
 

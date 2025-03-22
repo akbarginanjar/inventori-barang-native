@@ -1,6 +1,17 @@
 <?php
 $id = $_GET['id'];
-$query = $koneksi->query("select notifikasi.id, notifikasi.jatuh_tempo, barang_keluar.id_transaksi, barang_keluar.kode_barang, barang_keluar.nama_barang, barang_keluar.satuan, barang_keluar.tanggal, barang_keluar.jumlah, barang_keluar.harga_satuan, barang_keluar.total_harga, barang_keluar.nama_konsumen, barang_keluar.no_hp from notifikasi inner join barang_keluar on notifikasi.id_barang_keluar = barang_keluar.id where notifikasi.id=$id");
+
+// $query = $koneksi->query("select notifikasi.id, notifikasi.jatuh_tempo, barang_keluar.id_transaksi, barang_keluar.kode_barang, barang_keluar.nama_barang, barang_keluar.satuan, barang_keluar.tanggal, barang_keluar.jumlah, barang_keluar.harga_satuan, barang_keluar.total_harga, barang_keluar.nama_konsumen, barang_keluar.no_hp from notifikasi inner join barang_keluar on notifikasi.id_barang_keluar = barang_keluar.id where notifikasi.id=$id");
+$query = $koneksi->query("
+SELECT notifikasi.id, notifikasi.jatuh_tempo, 
+       GROUP_CONCAT(barang_keluar_items.nama_barang SEPARATOR ', ') AS nama_barang, 
+       barang_keluar.nama_konsumen, barang_keluar.no_hp, barang_keluar.id_transaksi, barang_keluar.tanggal, barang_keluar.total_harga_barang
+FROM notifikasi
+INNER JOIN barang_keluar ON notifikasi.id_barang_keluar = barang_keluar.id
+INNER JOIN barang_keluar_items ON barang_keluar.id = barang_keluar_items.id_barang_keluar
+WHERE notifikasi.id=$id
+GROUP BY notifikasi.id 
+");
 $data = $query->fetch_assoc();
 ?>
 
@@ -9,7 +20,7 @@ $data = $query->fetch_assoc();
     <a href="?page=notifikasi" class="btn btn-sm btn-primary mb-3"><i class="fa fa-arrow-left mr-2"></i> Kembali</a>
 
     <!-- Notifikasi Sukses -->
-    <div class="card mb-3 col-9" style="border-radius: 15px;">
+    <div class="card " style="border-radius: 15px;">
         <div class="p-3">
             <h5 class="text-primary">Detail Notifikasi</h5>
             <hr>
@@ -44,31 +55,37 @@ $data = $query->fetch_assoc();
                     <tr>
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
-                        <th>Satuan</th>
                         <th>Jumlah</th>
+                        <th>Satuan</th>
                         <th>Harga Satuan</th>
                         <th>Total Harga</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>BRG-12039292</td>
-                        <td>Daging</td>
-                        <td>Kg</td>
-                        <td>40</td>
-                        <td>100.000</td>
-                        <td>300.000</td>
-                    </tr>
-                    <tr>
-                        <td>BRG-12039292</td>
-                        <td>Daging</td>
-                        <td>Kg</td>
-                        <td>40</td>
-                        <td>100.000</td>
-                        <td>300.000</td>
-                    </tr>
+                    <?php
+                    $query = "
+                    SELECT bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.no_hp, bk.total_harga_barang,
+                           bki.kode_barang, bki.nama_barang, bki.jumlah, bki.satuan,
+                           bki.harga_satuan, total_harga
+                    FROM barang_keluar bk
+                    JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+                    WHERE bk.id_transaksi = '$data[id_transaksi]' ";
+
+                    $result = $koneksi->query($query);
+                    while ($row = $result->fetch_assoc()):
+                    ?>
+                        <tr>
+                            <td><?= $row['kode_barang'] ?></td>
+                            <td><?= $row['nama_barang'] ?></td>
+                            <td><?= $row['jumlah'] ?></td>
+                            <td><?= $row['satuan'] ?></td>
+                            <td><?= number_format($row['harga_satuan'], 0, '', '.') ?></td>
+                            <td><?= number_format($row['total_harga'], 0, '', '.') ?></td>
+                        </tr>
+                    <?php endwhile; ?>
                 </tbody>
             </table>
+            <h5 class="float-right"> <b>TOTAL :</b> Rp.<?= number_format($data['total_harga_barang'], 0, '', '.') ?></h5>
         </div>
     </div>
 

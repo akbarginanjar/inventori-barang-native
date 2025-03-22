@@ -1,10 +1,18 @@
+<?php
+$query = $koneksi->query("SELECT SUM(total_nilai_stok) AS total_stok FROM gudang");
+
+$row = $query->fetch_assoc();
+$total_stok = $row['total_stok'];
+?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header py-3" style="display: flex; justify-content: space-between;">
       <h6 class="m-0 font-weight-bold text-primary">Stok Gudang</h6>
+      <a href="page/laporan/export_laporan_gudang_excel.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i>ExportToExcel</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -50,7 +58,7 @@
 
           </tbody>
         </table>
-        <a href="page/laporan/export_laporan_gudang_excel.php" class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i>ExportToExcel</a>
+        <h4 class="text-right mt-3 text-primary">Total : Rp. <?php echo number_format($total_stok, 0, '', '.') ?></h4>
 
         </tbody>
         </table>

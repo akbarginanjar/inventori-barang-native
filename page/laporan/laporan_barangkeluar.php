@@ -1,3 +1,9 @@
+<?php
+$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar");
+$row = $query->fetch_assoc();
+$total = $row['total'];
+?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -23,44 +29,7 @@
                 <div class="col-md-5">
                   <select class="form-control " name="bln">
 
-
-                    <option value="1" selected="">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <?php
-                  $now = date('Y');
-                  echo "<select name='thn' class='form-control'>";
-                  for ($a = 2018; $a <= $now; $a++) {
-                    echo "<option value='$a'>$a</option>";
-                  }
-                  echo "</select>";
-                  ?>
-                </div>
-
-                <input type="submit" class="" name="submit" value="Export to Excel">
-              </div>
-            </form>
-
-
-            <form id="Myform2">
-              <div class="row form-group">
-
-                <div class="col-md-5">
-                  <select class="form-control " name="bln">
-
-                    <option value="all" selected="">ALL</option>
+                    <option value="all" selected="">ALL (Juni - Mei) </option>
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -79,7 +48,44 @@
                   <?php
                   $now = date('Y');
                   echo "<select name='thn' class='form-control'>";
-                  for ($a = 2018; $a <= $now; $a++) {
+                  for ($a = 2022; $a <= $now; $a++) {
+                    echo "<option value='$a'>$a</option>";
+                  }
+                  echo "</select>";
+                  ?>
+                </div>
+
+                <input type="submit" class="" name="submit" value="Export to Excel">
+              </div>
+            </form>
+
+
+            <form id="Myform2">
+              <div class="row form-group">
+
+                <div class="col-md-5">
+                  <select class="form-control " name="bln">
+
+                    <option value="all" selected="">ALL (Juni - Mei) </option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <?php
+                  $now = date('Y');
+                  echo "<select name='thn' class='form-control'>";
+                  for ($a = 2022; $a <= $now; $a++) {
                     echo "<option value='$a'>$a</option>";
                   }
                   echo "</select>";
@@ -105,12 +111,9 @@
                 <th>No</th>
                 <th>Id Transaksi</th>
                 <th>Tanggal Keluar</th>
-                <th>Kode Barang</th>
                 <th>Nama Barang</th>
-                <th>Jumlah Keluar</th>
-                <th>Harga Satuan</th>
-                <th>Total Harga</th>
                 <th>Nama Konsumen</th>
+                <th>Total Harga</th>
 
               </tr>
             </thead>
@@ -120,7 +123,13 @@
               <?php
 
               $no = 1;
-              $sql = $koneksi->query("select * from barang_keluar");
+              $sql = $koneksi->query("
+              SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang,
+                    GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+              FROM barang_keluar bk
+              LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang
+              ");
               while ($data = $sql->fetch_assoc()) {
 
               ?>
@@ -128,18 +137,16 @@
                 <tr>
                   <td><?php echo $no++; ?></td>
                   <td><?php echo $data['id_transaksi'] ?></td>
-                  <td><?php echo $data['tanggal'] ?></td>
-                  <td><?php echo $data['kode_barang'] ?></td>
+                  <td><?php echo date("d-m-Y", strtotime($data["tanggal"])) ?></td>
                   <td><?php echo $data['nama_barang'] ?></td>
-                  <td><?php echo $data['jumlah'] ?></td>
-                  <td><?php echo number_format($data['harga_satuan'], 0, '', '.') ?></td>
-                  <td><?php echo number_format($data['total_harga'], 0, '', '.') ?></td>
                   <td><?php echo $data['nama_konsumen'] ?></td>
+                  <td><?php echo number_format($data['total_harga_barang'], 0, '', '.') ?></td>
                 </tr>
               <?php } ?>
 
             </tbody>
           </table>
+          <h4 class="text-right mt-3 text-primary">Total : Rp. <?php echo number_format($total, 0, '', '.') ?></h4>
 
           </tbody>
           </table>

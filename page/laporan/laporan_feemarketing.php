@@ -1,16 +1,26 @@
 <?php
-$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_masuk");
+if ($_SESSION['admin']) {
+  $user = $_SESSION['admin'];
+}
+$sql = $koneksi->query("select * from users where id='$user'");
+$dataUser = $sql->fetch_assoc();
 
+if ($dataUser['level'] == 'admin') {
+  $query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar");
+} else {
+  $query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]'");
+}
 $row = $query->fetch_assoc();
 $total = $row['total'];
 ?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Barang Masuk</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Fee Marketing</h6>
     </div>
     <div class="card-body">
 
@@ -23,12 +33,11 @@ $total = $row['total'];
         </tr>
         <tr>
           <td width="50%">
-            <form action="page/laporan/export_laporan_barangmasuk_excel.php" method="post">
+            <form action="page/laporan/export_laporan_feemarketing_excel.php" method="post">
               <div class="row form-group">
 
                 <div class="col-md-5">
                   <select class="form-control " name="bln">
-
 
                     <option value="all" selected="">ALL (Juni - Mei) </option>
                     <option value="1">January</option>
@@ -61,7 +70,7 @@ $total = $row['total'];
             </form>
 
 
-            <form id="Myform1">
+            <form id="Myform2">
               <div class="row form-group">
 
                 <div class="col-md-5">
@@ -102,7 +111,8 @@ $total = $row['total'];
 
       </table>
 
-      <div class="tampung1">
+      <div class="tampung2">
+
 
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -110,11 +120,10 @@ $total = $row['total'];
               <tr>
                 <th>No</th>
                 <th>Id Transaksi</th>
-                <th>Tanggal Masuk</th>
+                <th>Tanggal Keluar</th>
                 <th>Nama Barang</th>
-                <th>Pengirim</th>
-                <th>Total Harga</th>
-
+                <th>Nama Konsumen</th>
+                <th>Fee Marketing</th>
 
               </tr>
             </thead>
@@ -125,12 +134,12 @@ $total = $row['total'];
 
               $no = 1;
               $sql = $koneksi->query("
-              SELECT bm.id, bm.id_transaksi, bm.tanggal, bm.pengirim, bm.total_harga_barang,
-                    GROUP_CONCAT(bmi.nama_barang ORDER BY bmi.id SEPARATOR ', ') AS nama_barang
-              FROM barang_masuk bm
-              LEFT JOIN barang_masuk_items bmi ON bm.id = bmi.id_barang_masuk
-              GROUP BY bm.id, bm.id_transaksi, bm.tanggal, bm.pengirim, bm.total_harga_barang
-          ");
+              SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+                    GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+              FROM barang_keluar bk
+              LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+              ");
               while ($data = $sql->fetch_assoc()) {
 
               ?>
@@ -140,17 +149,14 @@ $total = $row['total'];
                   <td><?php echo $data['id_transaksi'] ?></td>
                   <td><?php echo date("d-m-Y", strtotime($data["tanggal"])) ?></td>
                   <td><?php echo $data['nama_barang'] ?></td>
-                  <td><?php echo $data['pengirim'] ?></td>
-                  <td><?php echo number_format($data['total_harga_barang'], 0, '', '.') ?></td>
-
-
-
+                  <td><?php echo $data['nama_konsumen'] ?></td>
+                  <td><?php echo number_format($data['fee_marketing'], 0, '', '.') ?></td>
                 </tr>
               <?php } ?>
 
             </tbody>
           </table>
-          <h4 class="text-right mt-3 text-primary">Total : <?php echo number_format($total, 0, '', '.') ?></h4>
+          <h4 class="text-right mt-3 text-primary">Total : Rp. <?php echo number_format($total, 0, '', '.') ?></h4>
 
           </tbody>
           </table>

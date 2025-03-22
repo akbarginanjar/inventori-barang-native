@@ -1,12 +1,7 @@
 <?php
 $id = $_GET['id'];
-$sql2 = $koneksi->query("select * from jenis_barang where id = '$id'");
-$tampil = $sql2->fetch_assoc();
-
-
-
-
-
+$sql = $koneksi->query("select * from users where id = '$id'");
+$tampil = $sql->fetch_assoc();
 
 ?>
 
@@ -28,16 +23,13 @@ $tampil = $sql2->fetch_assoc();
 						<label for="">Nama Karyawan</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="" class="form-control" id="">
-									<option value="">- Pilih Karyawan -</option>
-									<option value="" selected>Akbar Ginanjar</option>
-								</select>
+								<input type="text" name="nama" value="<?= $tampil['nama'] ?>" class="form-control">
 							</div>
 						</div>
-						<label for="">Jenis Barang</label>
+						<label for="">Gaji /bulan</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="" value="1jt" class="form-control" />
+								<input type="number" name="gaji" value="<?= $tampil['gaji'] ?>" class="form-control" />
 							</div>
 						</div>
 						<input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
@@ -50,32 +42,30 @@ $tampil = $sql2->fetch_assoc();
 
 					if (isset($_POST['simpan'])) {
 
-						$jenisbarang = $_POST['jenis_barang'];
+						$gaji = $_POST['gaji'];
 
 
-
-
-						$sql = $koneksi->query("update jenis_barang set jenis_barang='$jenisbarang' where id='$id'");
+						$sql = $koneksi->query("update users set gaji='$gaji' where id='$id'");
 
 						if ($sql) {
 					?>
 
-<script type="text/javascript">
-											Swal.fire({
-												toast: true,
-												position: "top-end",
-												icon: "success",
-												title: "Data berhasil diubah!",
-												showConfirmButton: false,
-												timer: 3000,
-												timerProgressBar: true
-											});
-									
-											// Tunggu 3 detik sebelum redirect
-											setTimeout(() => {
-												window.location.href = "?page=jenisbarang";
-											}, 1000);
-										</script>
+							<script type="text/javascript">
+								Swal.fire({
+									toast: true,
+									position: "top-end",
+									icon: "success",
+									title: "Data berhasil diubah!",
+									showConfirmButton: false,
+									timer: 3000,
+									timerProgressBar: true
+								});
+
+								// Tunggu 3 detik sebelum redirect
+								setTimeout(() => {
+									window.location.href = "?page=gajikaryawan";
+								}, 1000);
+							</script>
 
 					<?php
 						}
