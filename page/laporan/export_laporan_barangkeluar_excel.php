@@ -3,7 +3,7 @@ if (isset($_POST['submit'])) { ?>
 
 	<?php
 
-	$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+	$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
 	header("Content-type: application/vnd-ms-excel");
 
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) { ?>
 
 <?php
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
 
 $bln = $_POST['bln'];

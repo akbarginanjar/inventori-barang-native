@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
 if (empty($_SESSION['admin'])) {
 
@@ -62,6 +62,10 @@ $detail = $result->fetch_assoc();
         }
 
         @media print {
+            @page {
+                size: landscape;
+                margin: 1cm;
+            }
             body * {
                 visibility: hidden;
                 /* Sembunyikan semua elemen */
@@ -75,7 +79,7 @@ $detail = $result->fetch_assoc();
 
             #printArea {
                 position: absolute;
-                left: 0;
+                left: -20px;
                 top: 0;
                 width: 100%;
             }
@@ -89,7 +93,7 @@ $detail = $result->fetch_assoc();
 </head>
 
 <body>
-    <div class="container" style="">
+    <div class="" style="">
         <div class="">
             <a href="?page=barangkeluar" class="btn btn-outline-primary btn-sm mb-2">Kembali</a>
             <div class="card">
@@ -98,7 +102,8 @@ $detail = $result->fetch_assoc();
                         <br><br>
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <h1 class="invoice-title">INVOICE</h1>
+                                <!-- <h1 class="invoice-title">INVOICE</h1> -->
+                                 <img src="img/logo-mms.png" style="width: 100px; border-radius: 15px;"  class="mb-2" alt="">
                             </div>
                             <div class="col-md-6 text-end">
                                 <h4>CHIPS SUPPLIER</h4>
@@ -108,13 +113,14 @@ $detail = $result->fetch_assoc();
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>KEPADA :</strong></p>
-                                <div>Nama Konsumen: <?= $detail['nama_konsumen'] ?></div>
-                                <div>No HP : <?= $detail['no_hp'] ?> </div>
+                                <div><b> Kepada : </b> <?= $detail['nama_konsumen'] ?></div>
+                                <div><b> No HP : </b> <?= $detail['no_hp'] ?> </div>
+                                <div><b> Alamat : </b> Bandung </div>
                             </div>
                             <div class="col-md-6 text-end">
-                                <p><strong>TANGGAL KELUAR :</strong> <?= $detail['tanggal'] ?></p>
-                                <p><strong>ID TRANSAKSI :</strong> <?= $detail['id_transaksi'] ?> </p>
+                        <b> Tanggal Faktur : </b><?= date("d-m-Y", strtotime($detail['tanggal'])); ?> <br>
+                        <b> Pembayaran : </b>25-02-2024 <br>
+                        <b> No Faktur : </b><?= $detail['id_transaksi'] ?> <br>
                             </div>
                         </div>
                         <table class="table table-bordered mt-4">

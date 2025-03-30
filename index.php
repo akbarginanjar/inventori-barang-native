@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
 $current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
@@ -147,7 +147,7 @@ if (empty($_SESSION['admin'])) {
         <div id="collapseData" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menu:</h6>
-            <a class="collapse-item" href="?page=jenisbarang">Jenis Barang</a>
+            <!-- <a class="collapse-item" href="?page=jenisbarang">Jenis Barang</a> -->
             <a class="collapse-item" href="?page=satuanbarang">Satuan Barang</a>
             <a class="collapse-item" href="?page=supplier">Data Supplier</a>
 

@@ -105,7 +105,7 @@ $dataUser = $sql->fetch_assoc();
                             <div class="col-sm">
                               <div class="mb-3">
                                 <div class="mb-0 text-xs">Tanggal Masuk</div>
-                                <h6 class="mb-0" style="color: black;"> <?= $detail['tanggal'] ?> </h6>
+                                <h6 class="mb-0" style="color: black;"> <?= date("d-m-Y", strtotime($detail['tanggal'])); ?> </h6>
                               </div>
                             </div>
                             <div class="col-sm">

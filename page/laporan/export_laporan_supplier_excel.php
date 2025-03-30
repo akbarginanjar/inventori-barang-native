@@ -1,6 +1,6 @@
  <?php
 
-	$koneksi = new mysqli("127.0.0.1","root","","inventori");
+	$koneksi = new mysqli("127.0.0.1","root","","pengadaan_barang");
 
 	
 	

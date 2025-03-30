@@ -2,7 +2,7 @@
 
 
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 $no = mysqli_query($koneksi, "select kode_barang from gudang order by kode_barang desc");
 $kdbarang = mysqli_fetch_array($no);
 $kode = $kdbarang['kode_barang'];

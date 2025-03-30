@@ -82,7 +82,7 @@ $laba_bersih = $laba_kotor - $total_cost;
         <input type="hidden" name="page" value="laba">
         <div class="row form-group">
           <div class="col-md-3">
-            <select class="form-control" name="bln">
+            <!-- <select class="form-control" name="bln">
               <?php
               $bulanSekarang = date('n'); // Ambil bulan sekarang (1-12)
               $bulan = [
@@ -118,8 +118,8 @@ $laba_bersih = $laba_kotor - $total_cost;
             echo "</select>";
             ?>
           </div>
-          <input type="submit" class="btn btn-primary">
-          <button class="btn btn-danger ml-2" onclick="window.print()">Print</button>
+          <input type="submit" class="btn btn-primary"> -->
+          <button class="btn btn-danger mb-2" onclick="window.print()">Print</button>
         </div>
       </form>
       <br>

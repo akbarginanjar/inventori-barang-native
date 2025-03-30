@@ -1,7 +1,7 @@
   <?php
 
 
-	$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+	$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 	$no = mysqli_query($koneksi, "select id_transaksi from barang_keluar order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
 	$kode = $idtran['id_transaksi'];
@@ -26,7 +26,7 @@
 
 	function firstBarang($kode_barang)
 	{
-		$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+		$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 		// Query dengan prepared statement
 		$sql = "SELECT * FROM gudang WHERE kode_barang = ? LIMIT 1";
 		$stmt = $koneksi->prepare($sql);

@@ -2,7 +2,7 @@
 
 session_start();
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
+$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
 
 ?>
@@ -92,6 +92,7 @@ $koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 </html>
 
 <?php
+session_start();
 
 $username = $_POST['username'];
 $password = md5($_POST['password']);

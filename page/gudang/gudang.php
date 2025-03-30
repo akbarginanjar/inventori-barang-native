@@ -33,7 +33,7 @@ $total_stok = $row['total_stok'];
               <th>No</th>
               <th>Kode Barang</th>
               <th>Nama Barang</th>
-              <th>Jenis Barang</th>
+              <!-- <th>Jenis Barang</th> -->
 
               <th>Jumlah Barang</th>
               <th>Satuan</th>
@@ -62,7 +62,7 @@ $total_stok = $row['total_stok'];
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $data['kode_barang'] ?></td>
                 <td><?php echo $data['nama_barang'] ?></td>
-                <td><?php echo $data['jenis_barang'] ?></td>
+                <!-- <td><?php echo $data['jenis_barang'] ?></td> -->
 
                 <td><?php echo $data['jumlah'] ?></td>
                 <td><?php echo $data['satuan'] ?></td>
@@ -88,7 +88,7 @@ $total_stok = $row['total_stok'];
 
         </tbody>
         </table>
-        <h4 class="text-right mt-3 text-primary">Total : Rp. <?php echo number_format($total_stok, 0, '', '.') ?></h4>
+        <h4 class="text-right mt-3 text-primary">Total : Rp. <?= number_format($total_stok, 0, '', '.') ?></h4>
       </div>
     </div>
   </div>
