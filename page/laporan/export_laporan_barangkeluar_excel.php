@@ -3,7 +3,7 @@ if (isset($_POST['submit'])) { ?>
 
 	<?php
 
-	$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+	$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 	header("Content-type: application/vnd-ms-excel");
 
@@ -14,12 +14,12 @@ if (isset($_POST['submit'])) { ?>
 
 	<?php
 	if ($bln == 'all') {
-		header("Content-Disposition: attachment; filename=Laporan_Barang_Keluar (01-06-" . $thn . " - 31-05-" . $thn + 1 . ").xls");
+		header("Content-Disposition: attachment; filename=Laporan_Barang_Keluar (01-01-" . $thn . " - 31-12-" . $thn . ").xls");
 	?>
 
 		<body>
 			<center>
-				<h2>Laporan Barang Keluar Bulan 1 Juni <?= $thn ?> - 31 Mei <?= $thn + 1 ?></h2>
+				<h2>Laporan Barang Keluar Bulan 1 January <?= $thn ?> - 31 December <?= $thn ?></h2>
 			</center>
 			<table border="1">
 				<tr>
@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) { ?>
 				<?php
 
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar where tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'");
+				$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar where tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'");
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) { ?>
 						GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
 				FROM barang_keluar bk
 				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-				WHERE bk.tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'
+				WHERE bk.tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'
 				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang
 				");
 				while ($data = $sql->fetch_assoc()) {
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) { ?>
 
 <?php
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 
 $bln = $_POST['bln'];
@@ -162,7 +162,7 @@ if ($bln == 'all') {
 
 				<?php
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar where tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'");
+				$query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar where tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'");
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
@@ -172,7 +172,7 @@ if ($bln == 'all') {
 						GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
 				FROM barang_keluar bk
 				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-				WHERE bk.tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'
+				WHERE bk.tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'
 				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang
 				");
 				while ($data = $sql->fetch_assoc()) {

@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 if (empty($_SESSION['admin'])) {
 
@@ -13,7 +13,7 @@ if (empty($_SESSION['admin'])) {
 $id_transaksi = $_GET['id_transaksi'];
 
 $query = "
-SELECT bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.no_hp, bk.total_harga_barang,
+SELECT bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.no_hp, bk.alamat, bk.total_harga_barang,
        bki.kode_barang, bki.nama_barang, bki.jumlah, bki.satuan,
        bki.harga_satuan, total_harga
 FROM barang_keluar bk
@@ -66,6 +66,7 @@ $detail = $result->fetch_assoc();
                 size: landscape;
                 margin: 1cm;
             }
+
             body * {
                 visibility: hidden;
                 /* Sembunyikan semua elemen */
@@ -88,6 +89,21 @@ $detail = $result->fetch_assoc();
             .btn {
                 display: none;
             }
+
+            .row {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+            }
+
+            .col-md-6 {
+                width: 48% !important;
+                float: left;
+            }
+
+            .text-end {
+                text-align: right !important;
+            }
         }
     </style>
 </head>
@@ -103,7 +119,7 @@ $detail = $result->fetch_assoc();
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <!-- <h1 class="invoice-title">INVOICE</h1> -->
-                                 <img src="img/logo-mms.png" style="width: 100px; border-radius: 15px;"  class="mb-2" alt="">
+                                <img src="img/logo-mms.png" style="width: 100px; border-radius: 15px;" class="mb-2" alt="">
                             </div>
                             <div class="col-md-6 text-end">
                                 <h4>CHIPS SUPPLIER</h4>
@@ -115,12 +131,12 @@ $detail = $result->fetch_assoc();
                             <div class="col-md-6">
                                 <div><b> Kepada : </b> <?= $detail['nama_konsumen'] ?></div>
                                 <div><b> No HP : </b> <?= $detail['no_hp'] ?> </div>
-                                <div><b> Alamat : </b> Bandung </div>
+                                <div><b> Alamat : </b> <?= $detail['alamat'] ?? '-' ?> </div>
                             </div>
                             <div class="col-md-6 text-end">
-                        <b> Tanggal Faktur : </b><?= date("d-m-Y", strtotime($detail['tanggal'])); ?> <br>
-                        <b> Pembayaran : </b>25-02-2024 <br>
-                        <b> No Faktur : </b><?= $detail['id_transaksi'] ?> <br>
+                                <b> Tanggal Faktur : </b><?= date("d-m-Y", strtotime($detail['tanggal'])); ?> <br>
+                                <b> Pembayaran : </b>25-02-2024 <br>
+                                <b> No Faktur : </b><?= $detail['id_transaksi'] ?> <br>
                             </div>
                         </div>
                         <table class="table table-bordered mt-4">
@@ -129,8 +145,8 @@ $detail = $result->fetch_assoc();
                                     <th>KODE BARANG</th>
                                     <th>NAMA BARANG</th>
                                     <th>JUMLAH</th>
-                                    <th>HARGA SATUAN</th>
                                     <th>SATUAN</th>
+                                    <th>HARGA SATUAN</th>
                                     <th>TOTAL HARGA</th>
                                 </tr>
                             </thead>
@@ -143,8 +159,8 @@ $detail = $result->fetch_assoc();
                                         <td><?= $row['kode_barang'] ?></td>
                                         <td><?= $row['nama_barang'] ?></td>
                                         <td><?= $row['jumlah'] ?></td>
-                                        <td><?= number_format($row['harga_satuan'], 0, '', '.') ?></td>
                                         <td><?= $row['satuan'] ?></td>
+                                        <td><?= number_format($row['harga_satuan'], 0, '', '.') ?></td>
                                         <td><?= number_format($row['total_harga'], 0, '', '.') ?></td>
                                     </tr>
                                 <?php endwhile; ?>

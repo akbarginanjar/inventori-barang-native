@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 $current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
 

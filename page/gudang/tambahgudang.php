@@ -2,7 +2,7 @@
 
 
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 $no = mysqli_query($koneksi, "select kode_barang from gudang order by kode_barang desc");
 $kdbarang = mysqli_fetch_array($no);
 $kode = $kdbarang['kode_barang'];
@@ -58,14 +58,14 @@ $jumlah = 0;
 						<label for="">Nama Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" name="nama_barang" class="form-control" />
+								<input type="text" name="nama_barang" class="form-control" required />
 							</div>
 						</div>
 
-						<label for="">Jenis Barang</label>
+						<!-- <label for="">Jenis Barang</label> -->
 						<div class="form-group">
 							<div class="form-line">
-								<select name="jenis_barang" class="form-control" />
+								<select name="jenis_barang" class="form-control" hidden />
 								<option value="">-- Pilih Jenis Barang --</option>
 								<?php
 
@@ -99,7 +99,7 @@ $jumlah = 0;
 						<label for="">Satuan Barang</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select name="satuan" class="form-control" />
+								<select name="satuan" class="form-control" required />
 								<option value="">-- Pilih Satuan Barang --</option>
 								<?php
 
@@ -152,7 +152,7 @@ $jumlah = 0;
 
 
 
-						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang, jenis_barang, jumlah, satuan, harga_rata, total_nilai_stok ) values('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan', '$harga_rata', '$total_nilai_stok')");
+						$sql = $koneksi->query("insert into gudang (kode_barang, nama_barang,  jumlah, satuan, harga_rata, total_nilai_stok ) values('$kode_barang','$nama_barang','$jumlah','$satuan', '$harga_rata', '$total_nilai_stok')");
 
 						if ($sql) {
 					?>

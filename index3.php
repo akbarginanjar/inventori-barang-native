@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 $current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
@@ -55,7 +55,7 @@ if (empty($_SESSION['gudang'])) {
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon">
-        <img src="img/logo-mms.png" width="45px" style="border-radius: 13px; border: 1px solid white;" alt="">
+          <img src="img/logo-mms.png" width="45px" style="border-radius: 13px; border: 1px solid white;" alt="">
         </div>
         <div class="sidebar-brand-text mx-2">Chips Supplier</div>
       </a>

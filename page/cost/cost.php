@@ -24,6 +24,9 @@
             <?php
 
             $no = 1;
+            $sql1 = $koneksi->query("select SUM(biaya) AS total_cost from cost");
+            $row = $sql1->fetch_assoc();
+            $total_cost = $row['total_cost'];
             $sql = $koneksi->query("select * from cost");
             while ($data = $sql->fetch_assoc()) {
 
@@ -46,6 +49,8 @@
 
           </tbody>
         </table>
+        <h4 class="text-right mt-3 text-primary">Total Cost : Rp. <?= number_format($total_cost, 0, '', '.') ?></h4>
+
         </tbody>
         </table>
       </div>

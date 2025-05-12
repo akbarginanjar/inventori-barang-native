@@ -2,7 +2,7 @@
 
 session_start();
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 
 
 ?>
@@ -39,15 +39,15 @@ $koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
         <div class="row justify-content-center">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
-<br><br><br><br>
+                <br><br><br><br>
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
-								<center>
-									<img src="img/login.png" class="img-fluid" alt="">
-								</center>
-							</div>
+                                <center>
+                                    <img src="img/login.png" class="img-fluid" alt="">
+                                </center>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5 mt-5">
                                     <div class="text-center">
@@ -99,29 +99,30 @@ $password = md5($_POST['password']);
 $login = $_POST['login'];
 
 if ($login) {
-	$sql = $koneksi->query("select * from users where username='$username' and password='$password'");
-	$ketemu = $sql->num_rows;
-	$data = $sql->fetch_assoc();
+    $sql = $koneksi->query("select * from users where username='$username' and password='$password'");
+    $ketemu = $sql->num_rows;
+    $data = $sql->fetch_assoc();
 
-	if ($ketemu >= 1) {
-		session_start();
+    if ($ketemu >= 1) {
+        session_start();
+        echo $data['level'];
 
-		if ($data['level'] == 'admin') {
-			$_SESSION['admin'] = $data['id'];
-			header("location:index.php");
-		} else if ($data['level'] == 'marketing') {
-			$_SESSION['marketing'] = $data['id'];
-			header("location:index2.php");
-		} else if ($data['level'] == 'gudang') {
-			$_SESSION['gudang'] = $data['id'];
-			header("location:index3.php");
-		} else if ($data['level'] == 'keuangan') {
-			$_SESSION['keuangan'] = $data['id'];
-			header("location:index4.php");
-		}
-	} else {
-		echo '<center><div class="alert alert-danger">Upss...!!! Login gagal. Silakan Coba Kembali</div></center>';
-	}
+        if ($data['level'] == 'admin') {
+            $_SESSION['admin'] = $data['id'];
+            header("location:index.php");
+        } else if ($data['level'] == 'marketing') {
+            $_SESSION['marketing'] = $data['id'];
+            header("location:index2.php");
+        } else if ($data['level'] == 'gudang') {
+            $_SESSION['gudang'] = $data['id'];
+            header("location:index3.php");
+        } else if ($data['level'] == 'keuangan') {
+            $_SESSION['keuangan'] = $data['id'];
+            header("location:index4.php");
+        }
+    } else {
+        echo '<center><div class="alert alert-danger">Upss...!!! Login gagal. Silakan Coba Kembali</div></center>';
+    }
 }
 
 ?>

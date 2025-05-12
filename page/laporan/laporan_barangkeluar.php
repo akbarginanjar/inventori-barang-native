@@ -29,7 +29,7 @@ $total = $row['total'];
                 <div class="col-md-5">
                   <select class="form-control " name="bln">
 
-                    <option value="all" selected="">ALL (Juni - Mei) </option>
+                    <option value="all" selected="">ALL </option>
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -66,7 +66,7 @@ $total = $row['total'];
                 <div class="col-md-5">
                   <select class="form-control " name="bln">
 
-                    <option value="all" selected="">ALL (Juni - Mei) </option>
+                    <option value="all" selected="">ALL </option>
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>

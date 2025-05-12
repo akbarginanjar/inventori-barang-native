@@ -53,7 +53,7 @@ $total_stok = $row['total_stok'];
             <?php
 
             $no = 1;
-            $sql = $koneksi->query("select * from gudang");
+            $sql = $koneksi->query("select * from gudang ORDER BY id DESC");
             while ($data = $sql->fetch_assoc()) {
 
             ?>

@@ -1,6 +1,6 @@
   <?php
 
-	$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+	$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 	$no = mysqli_query($koneksi, "select id_transaksi from barang_masuk order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
 	$kode = $idtran['id_transaksi'];
@@ -26,7 +26,7 @@
 
 	function firstBarang($kode_barang)
 	{
-		$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+		$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 		// Query dengan prepared statement
 		$sql = "SELECT * FROM gudang WHERE kode_barang = ? LIMIT 1";
 		$stmt = $koneksi->prepare($sql);
@@ -80,7 +80,7 @@
   						<label for="">Supplier</label>
   						<div class="form-group">
   							<div class="form-line">
-  								<select name="pengirim" class="form-control" />
+  								<select name="pengirim" class="form-control" required />
   								<option value="">-- Pilih Supplier --</option>
   								<?php
 
@@ -156,7 +156,7 @@
   							cellStok.innerHTML = `<input name="stok[]" readonly type="number" class="form-control stok" value="0">`;
 
   							cellJumlah.innerHTML = `<div class="input-group mb-3">
-								<input type="number" name="jumlahmasuk[]" class="form-control jumlah" min="1" required>
+								<input type="number" name="jumlahmasuk[]" class="form-control jumlah" min="1" step="0.1" required>
 								<span class="input-group-text satuanLabel"></span>
 								<input type="hidden" class="satuan" name="satuan[]"></input>
 							</div>`;
@@ -202,7 +202,7 @@
   							const row = this.closest("tr");
   							const jumlah = row.querySelector(".jumlah").value || 0;
   							const stok = row.querySelector(".stok").value || 0;
-  							const totalStok = parseInt(stok) + parseInt(jumlah);
+  							const totalStok = parseFloat(stok) + parseFloat(jumlah);
   							row.querySelector(".total_stok").value = totalStok;
   							const harga = row.querySelector(".harga").value || 0;
   							const totalHarga = jumlah * harga;
@@ -260,7 +260,7 @@
 										$kode_barang = $pecah_barang[0];
 										$nama_barang = $pecah_barang[1];
 
-										$jumlahData = intval($jumlah[$i]);
+										$jumlahData = floatval($jumlah[$i]);
 										$hargaSatuanData = intval($harga_satuan[$i]);
 										$totalHargaData = intval($total_harga[$i]);
 

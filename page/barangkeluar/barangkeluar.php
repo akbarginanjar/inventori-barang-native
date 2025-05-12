@@ -84,7 +84,7 @@ $total = $row['total'];
                     GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
               FROM barang_keluar bk
               LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang
+              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang ORDER BY bk.id DESC
           ");
             } else {
               $sql = $koneksi->query("
@@ -93,7 +93,7 @@ $total = $row['total'];
               FROM barang_keluar bk
               LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
               where id_marketing='$dataUser[id]'
-              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang
+              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang ORDER BY bk.id DESC
           ");
             }
             while ($data = $sql->fetch_assoc()) {

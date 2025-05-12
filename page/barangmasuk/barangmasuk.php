@@ -54,7 +54,7 @@ $dataUser = $sql->fetch_assoc();
                     GROUP_CONCAT(bmi.nama_barang ORDER BY bmi.id SEPARATOR ', ') AS nama_barang
               FROM barang_masuk bm
               LEFT JOIN barang_masuk_items bmi ON bm.id = bmi.id_barang_masuk
-              GROUP BY bm.id, bm.id_transaksi, bm.tanggal, bm.pengirim, bm.total_harga_barang
+              GROUP BY bm.id, bm.id_transaksi, bm.tanggal, bm.pengirim, bm.total_harga_barang ORDER BY bm.id DESC
           ");
             while ($data = $sql->fetch_assoc()) {
             ?>
@@ -165,7 +165,7 @@ $dataUser = $sql->fetch_assoc();
 
         </tbody>
         </table>
-        <h4 class="text-right mt-3 text-primary">Total : <?php echo number_format($total, 0, '', '.') ?></h4>
+        <h4 class="text-right mt-3 text-primary">Total : Rp. <?php echo number_format($total, 0, '', '.') ?></h4>
       </div>
     </div>
   </div>

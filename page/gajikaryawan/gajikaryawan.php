@@ -1,6 +1,6 @@
 <!-- Begin Page Content -->
 <?php
-$koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
+$koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 ?>
 
 <div class="container-fluid">
@@ -47,7 +47,7 @@ $koneksi = new mysqli("127.0.0.1", "root", "", "pengadaan_barang");
 
           </tbody>
         </table>
-        <h4 class="text-right mt-3 text-primary">Total Gaji : <?= number_format($total_gaji, 0, '', '.') ?></h4>
+        <h4 class="text-right mt-3 text-primary">Total Gaji : Rp. <?= number_format($total_gaji, 0, '', '.') ?></h4>
 
         </tbody>
         </table>
