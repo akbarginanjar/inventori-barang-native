@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Linux (x86_64)
 --
 -- Host: localhost    Database: inventori
 -- ------------------------------------------------------
--- Server version	8.0.40-0ubuntu0.24.04.1
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,19 +26,15 @@ CREATE TABLE `barang_keluar` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_transaksi` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_barang` varchar(100) NOT NULL,
-  `nama_barang` varchar(100) NOT NULL,
-  `jumlah` double NOT NULL,
-  `satuan` varchar(100) NOT NULL,
-  `harga_satuan` bigint NOT NULL,
-  `total_harga` bigint NOT NULL,
+  `total_harga_barang` bigint NOT NULL,
   `nama_konsumen` varchar(100) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
+  `alamat` text,
   `jatuh_tempo` date NOT NULL,
   `id_marketing` int DEFAULT NULL,
   `fee_marketing` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,8 +43,40 @@ CREATE TABLE `barang_keluar` (
 
 LOCK TABLES `barang_keluar` WRITE;
 /*!40000 ALTER TABLE `barang_keluar` DISABLE KEYS */;
-INSERT INTO `barang_keluar` VALUES (9,'TRK-0225001','2025-02-14','BAR-0225001','Lidah',30,'Kg',15000,450000,'Kidam Kusnandi','08380746449','2025-02-15',28,39375);
+INSERT INTO `barang_keluar` VALUES (1,'TRK-0525001','2025-05-15',77000,'Kidam Kusnandi','08380746449',' Jalan Sayuran','2025-05-16',28,6600),(2,'TRK-0525002','2025-05-15',263050,'Akbar Ginanjar','08873434343',' Cibiuk','2025-05-16',28,17415),(3,'TRK-0525003','2025-05-15',90000,'jjj','089843284343',' dd','2025-05-15',28,12000);
 /*!40000 ALTER TABLE `barang_keluar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `barang_keluar_items`
+--
+
+DROP TABLE IF EXISTS `barang_keluar_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `barang_keluar_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_barang_keluar` int NOT NULL,
+  `kode_barang` varchar(100) DEFAULT NULL,
+  `nama_barang` varchar(100) DEFAULT NULL,
+  `jumlah` double DEFAULT NULL,
+  `satuan` varchar(100) DEFAULT NULL,
+  `harga_satuan` bigint DEFAULT NULL,
+  `total_harga` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_barang_keluar` (`id_barang_keluar`),
+  CONSTRAINT `barang_keluar_items_ibfk_1` FOREIGN KEY (`id_barang_keluar`) REFERENCES `barang_keluar` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `barang_keluar_items`
+--
+
+LOCK TABLES `barang_keluar_items` WRITE;
+/*!40000 ALTER TABLE `barang_keluar_items` DISABLE KEYS */;
+INSERT INTO `barang_keluar_items` VALUES (1,1,'BAR-0525001','Kepala',1.1,'Kg',70000,77000),(2,2,'BAR-0525001','Kepala',1.1,'Kg',75500,83050),(3,2,'BAR-0525002','Paha',1.5,'Kg',120000,180000),(4,3,'BAR-0525001','Kepala',1,'Kg',90000,90000);
+/*!40000 ALTER TABLE `barang_keluar_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -62,15 +90,10 @@ CREATE TABLE `barang_masuk` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_transaksi` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_barang` varchar(100) NOT NULL,
-  `nama_barang` varchar(100) NOT NULL,
   `pengirim` varchar(100) NOT NULL,
-  `jumlah` double NOT NULL,
-  `satuan` varchar(100) NOT NULL,
-  `harga_satuan` bigint NOT NULL,
-  `total_harga` bigint NOT NULL,
+  `total_harga_barang` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,8 +102,65 @@ CREATE TABLE `barang_masuk` (
 
 LOCK TABLES `barang_masuk` WRITE;
 /*!40000 ALTER TABLE `barang_masuk` DISABLE KEYS */;
-INSERT INTO `barang_masuk` VALUES (1,'TRM-0225001','2025-02-14','BAR-0225001','Lidah','NIAGA JAYA',50,'Kg',10000,500000),(5,'TRM-0225002','2025-02-14','BAR-0225001','Lidah','NIAGA JAYA',20,'Kg',12000,240000),(6,'TRM-0225003','2025-02-14','BAR-0225001','Lidah','NIAGA JAYA',10,'Kg',11000,110000),(7,'TRM-0225004','2025-02-14','BAR-0225001','Lidah','PT. Seribu Masa Bersama',15,'Kg',13000,195000);
+INSERT INTO `barang_masuk` VALUES (1,'TRM-0525001','2025-05-15','CV ADS KARTINI',160000),(2,'TRM-0525002','2025-05-15','CV ADS KARTINI',1000000);
 /*!40000 ALTER TABLE `barang_masuk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `barang_masuk_items`
+--
+
+DROP TABLE IF EXISTS `barang_masuk_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `barang_masuk_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_barang_masuk` int NOT NULL,
+  `kode_barang` varchar(100) DEFAULT NULL,
+  `nama_barang` varchar(100) DEFAULT NULL,
+  `jumlah` double DEFAULT NULL,
+  `satuan` varchar(100) DEFAULT NULL,
+  `harga_satuan` bigint DEFAULT NULL,
+  `total_harga` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_barang_masuk` (`id_barang_masuk`),
+  CONSTRAINT `barang_masuk_items_ibfk_1` FOREIGN KEY (`id_barang_masuk`) REFERENCES `barang_masuk` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `barang_masuk_items`
+--
+
+LOCK TABLES `barang_masuk_items` WRITE;
+/*!40000 ALTER TABLE `barang_masuk_items` DISABLE KEYS */;
+INSERT INTO `barang_masuk_items` VALUES (1,1,'BAR-0525001','Kepala',3.2,'Kg',50000,160000),(2,2,'BAR-0525002','Paha',10,'Kg',100000,1000000);
+/*!40000 ALTER TABLE `barang_masuk_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cost`
+--
+
+DROP TABLE IF EXISTS `cost`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cost` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) NOT NULL,
+  `biaya` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cost`
+--
+
+LOCK TABLES `cost` WRITE;
+/*!40000 ALTER TABLE `cost` DISABLE KEYS */;
+INSERT INTO `cost` VALUES (1,'Listrik',20000);
+/*!40000 ALTER TABLE `cost` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,13 +174,13 @@ CREATE TABLE `gudang` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode_barang` varchar(100) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
-  `jenis_barang` varchar(100) NOT NULL,
+  `jenis_barang` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `jumlah` double NOT NULL,
   `satuan` varchar(100) NOT NULL,
   `harga_rata` bigint NOT NULL,
   `total_nilai_stok` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +189,7 @@ CREATE TABLE `gudang` (
 
 LOCK TABLES `gudang` WRITE;
 /*!40000 ALTER TABLE `gudang` DISABLE KEYS */;
-INSERT INTO `gudang` VALUES (1,'BAR-0225001','Lidah','Wagyu Sirloin',65,'Kg',11173,726245);
+INSERT INTO `gudang` VALUES (1,'BAR-0525001','Kepala',NULL,0,'Kg',50000,0),(2,'BAR-0525002','Paha',NULL,8.5,'Kg',100000,850000);
 /*!40000 ALTER TABLE `gudang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +230,7 @@ CREATE TABLE `notifikasi` (
   `jatuh_tempo` date NOT NULL,
   `status` enum('pending','selesai') NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +239,7 @@ CREATE TABLE `notifikasi` (
 
 LOCK TABLES `notifikasi` WRITE;
 /*!40000 ALTER TABLE `notifikasi` DISABLE KEYS */;
-INSERT INTO `notifikasi` VALUES (1,9,'2025-02-14','selesai');
+INSERT INTO `notifikasi` VALUES (1,9,'2025-02-14','selesai'),(2,1,'2025-03-29','selesai'),(3,2,'2025-05-12','pending'),(4,1,'2025-05-16','pending'),(5,2,'2025-05-16','pending'),(6,2,'2025-05-16','pending'),(7,3,'2025-05-15','selesai');
 /*!40000 ALTER TABLE `notifikasi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,6 +311,7 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL,
   `level` varchar(25) NOT NULL DEFAULT 'member',
   `foto` varchar(25) NOT NULL,
+  `gaji` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -241,7 +322,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (26,'1001','Admin','','08999444000','admin','21232f297a57a5a743894a0e4a801fc3','admin','teacher4.png'),(27,'10001','Gudang','','0986660000','gudang','202446dd1d6028084426867365b0c7a1','gudang','mahugi.jpg'),(28,'123','Marketing','','083821198187','marketing','c769c2bd15500dd906102d9be97fdceb','marketing','DSC_0696.JPG'),(30,'102938','Keuangan','-','08374627838','keuangan','a4151d4b2856ec63368a7c784b1f0a6e','keuangan','foto.jpg');
+INSERT INTO `users` VALUES (26,'1001','Admin','','08999444000','admin','21232f297a57a5a743894a0e4a801fc3','admin','teacher4.png',20000),(27,'10001','Gudang','','0986660000','gudang','202446dd1d6028084426867365b0c7a1','gudang','mahugi.jpg',NULL),(28,'123','Marketing','','083821198187','marketing','c769c2bd15500dd906102d9be97fdceb','marketing','DSC_0696.JPG',NULL),(30,'102938','Keuangan','-','08374627838','keuangan','a4151d4b2856ec63368a7c784b1f0a6e','keuangan','foto.jpg',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-14 21:14:37
+-- Dump completed on 2025-05-15 22:40:31
