@@ -27,12 +27,12 @@ if (isset($_POST['submit'])) { ?>
 
 	<?php
 	if ($bln == 'all') {
-		header("Content-Disposition: attachment; filename=Laporan_Fee_Marketing (01-06-" . $thn . " - 31-05-" . $thn + 1 . ").xls");
+		header("Content-Disposition: attachment; filename=Laporan_Fee_Marketing (01-01-" . $thn . " - 31-05-" . $thn . ").xls");
 	?>
 
 		<body>
 			<center>
-				<h2>Laporan Barang Keluar Bulan 1 Juni <?= $thn ?> - 31 Mei <?= $thn + 1 ?></h2>
+				<h2>Laporan Barang Keluar Bulan 1 Januari <?= $thn ?> - 31 Desember <?= $thn  ?></h2>
 			</center>
 			<table border="1">
 				<tr>
@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) { ?>
 				<?php
 
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'");
+				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) { ?>
 				FROM barang_keluar bk
 				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
 				where id_marketing='$dataUser[id]' AND
-				bk.tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'
+				bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
 				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
 				");
 				while ($data = $sql->fetch_assoc()) {
@@ -177,7 +177,7 @@ if ($bln == 'all') {
 
 				<?php
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'");
+				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
@@ -188,7 +188,7 @@ if ($bln == 'all') {
 				FROM barang_keluar bk
 				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
 				where id_marketing='$dataUser[id]' AND
-				bk.tanggal BETWEEN '$thn-06-01' AND '" . ($thn + 1) . "-05-31'
+				bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
 				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
 				");
 				while ($data = $sql->fetch_assoc()) {

@@ -80,7 +80,7 @@ $total = $row['total'];
             $no = 1;
             if ($dataUser['level'] != 'marketing') {
               $sql = $koneksi->query("
-              SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang,
+              SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.fee_marketing, bk.nama_konsumen, bk.total_harga_barang,
                     GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
               FROM barang_keluar bk
               LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar

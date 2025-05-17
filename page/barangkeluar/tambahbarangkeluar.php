@@ -185,7 +185,7 @@
   							cellStok.innerHTML = `<input name="stok[]" readonly type="number" class="form-control stok" value="0">`;
 
   							cellJumlah.innerHTML = `<div class="input-group mb-3">
-								<input type="number" name="jumlahkeluar[]" class="form-control jumlah" min="1" step="0.1" required>
+								<input type="number" name="jumlahkeluar[]" class="form-control jumlah" min="0" step="any" required>
 								<span class="input-group-text satuanLabel"></span>
 								<input type="hidden" class="satuan" name="satuan[]"></input>
 							</div>`;

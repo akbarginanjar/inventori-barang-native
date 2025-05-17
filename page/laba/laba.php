@@ -81,44 +81,6 @@ $laba_bersih = $laba_kotor - $total_cost;
       <form class="form-area" action="" method="get">
         <input type="hidden" name="page" value="laba">
         <div class="row form-group">
-          <div class="col-md-3">
-            <!-- <select class="form-control" name="bln">
-              <?php
-              $bulanSekarang = date('n'); // Ambil bulan sekarang (1-12)
-              $bulan = [
-                1 => "January",
-                2 => "February",
-                3 => "March",
-                4 => "April",
-                5 => "May",
-                6 => "June",
-                7 => "July",
-                8 => "August",
-                9 => "September",
-                10 => "October",
-                11 => "November",
-                12 => "December"
-              ];
-
-              foreach ($bulan as $angka => $nama) {
-                $selected = ($angka == $bln) ? 'selected' : '';
-                echo "<option value='$angka' $selected>$nama</option>";
-              }
-              ?>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <?php
-            $now = date('Y');
-            echo "<select name='thn' class='form-control'>";
-            for ($a = 2022; $a <= $now; $a++) {
-              $selected = ($a == $thn) ? 'selected' : '';
-              echo "<option value='$a' $selected>$a</option>";
-            }
-            echo "</select>";
-            ?>
-          </div>
-          <input type="submit" class="btn btn-primary"> -->
           <button class="btn btn-danger mb-2" onclick="window.print()">Print</button>
         </div>
       </form>
