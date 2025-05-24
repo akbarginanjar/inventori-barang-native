@@ -69,7 +69,7 @@ if (empty($_SESSION['gudang'])) {
         $user = $_SESSION['gudang'];
       }
       $sql = $koneksi->query("select * from users where id='$user'");
-      $data = $sql->fetch_assoc();
+      $user = $sql->fetch_assoc();
       ?>
 
       <!-- Nav Item - Dashboard -->
@@ -210,9 +210,9 @@ if (empty($_SESSION['gudang'])) {
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-3 d-none d-lg-inline text-gray-600"><?php echo  $data['nama']; ?></span>
+                <span class="mr-3 d-none d-lg-inline text-gray-600"><?php echo  $user['nama']; ?></span>
                 <img class="img-profile rounded-circle"
-                  src="img/<?php echo $data['foto'] ?>">
+                  src="img/<?php echo $user['foto'] ?>">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
