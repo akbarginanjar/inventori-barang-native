@@ -232,10 +232,10 @@
   							const jumlah = row.querySelector(".jumlah").value || 0;
   							const stok = row.querySelector(".stok").value || 0;
   							const totalStok = parseFloat(stok) - parseFloat(jumlah);
-  							row.querySelector(".total_stok").value = totalStok;
+  							row.querySelector(".total_stok").value = totalStok.toFixed(2);
   							const harga = row.querySelector(".harga").value || 0;
   							const totalHarga = jumlah * harga;
-  							row.querySelector(".total_harga").value = totalHarga;
+  							row.querySelector(".total_harga").value = Math.ceil(totalHarga);
   						}
 
   						function hapusBarang(button) {
