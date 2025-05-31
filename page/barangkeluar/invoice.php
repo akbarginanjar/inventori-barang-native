@@ -111,7 +111,7 @@ $detail = $result->fetch_assoc();
 </head>
 
 <body>
-    <div class="" style="">
+    <div class="" >
         <div class="">
             <?php 
                 if ($current_page == 'barangkeluar') {
