@@ -10,6 +10,8 @@ if (empty($_SESSION['admin'])) {
     header("location:/login.php");
 }
 
+$current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
 $id_transaksi = $_GET['id_transaksi'];
 
 $query = "
@@ -111,7 +113,18 @@ $detail = $result->fetch_assoc();
 <body>
     <div class="" style="">
         <div class="">
-            <a href="?page=barangkeluar" class="btn btn-outline-primary btn-sm mb-2">Kembali</a>
+            <?php 
+                if ($current_page == 'barangkeluar') {
+                    ?>
+                    <a href="?page=barangkeluar" class="btn btn-outline-primary btn-sm mb-2">Kembali</a>
+                    <?php
+                } else {
+                    ?>
+                    <a href="?page=feemarketing" class="btn btn-outline-primary btn-sm mb-2">Kembali</a>
+                    <?php
+                }
+            ?>
+            
             <div class="card">
                 <div class="card-body">
                     <div id="printArea">

@@ -16,7 +16,7 @@
 							<label for="">NIK</label>
                             <div class="form-group">
                                <div class="form-line">
-                                <input type="number" name="nik" class="form-control" />	 
+                                <input type="number" name="nik" class="form-control" oninput="this.value = this.value.slice(0, 16);"/>	 
 							</div>
                             </div>
 							

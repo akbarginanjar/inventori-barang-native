@@ -70,7 +70,7 @@ $total = $row['total'];
             </form>
 
 
-            <form id="Myform2">
+            <form id="Myform3">
               <div class="row form-group">
 
                 <div class="col-md-5">
@@ -133,13 +133,25 @@ $total = $row['total'];
               <?php
 
               $no = 1;
-              $sql = $koneksi->query("
-              SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
-                    GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
-              FROM barang_keluar bk
-              LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-              GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
-              ");
+              if ($dataUser['level'] != 'marketing') {
+                $sql = $koneksi->query("
+                SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+                      GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+                FROM barang_keluar bk
+                LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+                WHERE bk.fee_marketing != 0
+                GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+                ");
+              } else {
+                $sql = $koneksi->query("
+                SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+                      GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+                FROM barang_keluar bk
+                LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+                where id_marketing='$dataUser[id]'
+                GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+                ");
+              }
               while ($data = $sql->fetch_assoc()) {
 
               ?>

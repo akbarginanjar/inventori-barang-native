@@ -34,7 +34,7 @@ CREATE TABLE `barang_keluar` (
   `id_marketing` int DEFAULT NULL,
   `fee_marketing` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `barang_keluar` (
 
 LOCK TABLES `barang_keluar` WRITE;
 /*!40000 ALTER TABLE `barang_keluar` DISABLE KEYS */;
-INSERT INTO `barang_keluar` VALUES (1,'TRK-0525001','2025-05-15',77000,'Kidam Kusnandi','08380746449',' Jalan Sayuran','2025-05-16',28,6600),(2,'TRK-0525002','2025-05-15',263050,'Akbar Ginanjar','08873434343',' Cibiuk','2025-05-16',28,17415),(3,'TRK-0525003','2025-05-15',90000,'jjj','089843284343',' dd','2025-05-15',28,12000);
 /*!40000 ALTER TABLE `barang_keluar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +65,7 @@ CREATE TABLE `barang_keluar_items` (
   PRIMARY KEY (`id`),
   KEY `id_barang_keluar` (`id_barang_keluar`),
   CONSTRAINT `barang_keluar_items_ibfk_1` FOREIGN KEY (`id_barang_keluar`) REFERENCES `barang_keluar` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +74,6 @@ CREATE TABLE `barang_keluar_items` (
 
 LOCK TABLES `barang_keluar_items` WRITE;
 /*!40000 ALTER TABLE `barang_keluar_items` DISABLE KEYS */;
-INSERT INTO `barang_keluar_items` VALUES (1,1,'BAR-0525001','Kepala',1.1,'Kg',70000,77000),(2,2,'BAR-0525001','Kepala',1.1,'Kg',75500,83050),(3,2,'BAR-0525002','Paha',1.5,'Kg',120000,180000),(4,3,'BAR-0525001','Kepala',1,'Kg',90000,90000);
 /*!40000 ALTER TABLE `barang_keluar_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +91,7 @@ CREATE TABLE `barang_masuk` (
   `pengirim` varchar(100) NOT NULL,
   `total_harga_barang` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +100,6 @@ CREATE TABLE `barang_masuk` (
 
 LOCK TABLES `barang_masuk` WRITE;
 /*!40000 ALTER TABLE `barang_masuk` DISABLE KEYS */;
-INSERT INTO `barang_masuk` VALUES (1,'TRM-0525001','2025-05-15','CV ADS KARTINI',160000),(2,'TRM-0525002','2025-05-15','CV ADS KARTINI',1000000);
 /*!40000 ALTER TABLE `barang_masuk` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +122,7 @@ CREATE TABLE `barang_masuk_items` (
   PRIMARY KEY (`id`),
   KEY `id_barang_masuk` (`id_barang_masuk`),
   CONSTRAINT `barang_masuk_items_ibfk_1` FOREIGN KEY (`id_barang_masuk`) REFERENCES `barang_masuk` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +131,6 @@ CREATE TABLE `barang_masuk_items` (
 
 LOCK TABLES `barang_masuk_items` WRITE;
 /*!40000 ALTER TABLE `barang_masuk_items` DISABLE KEYS */;
-INSERT INTO `barang_masuk_items` VALUES (1,1,'BAR-0525001','Kepala',3.2,'Kg',50000,160000),(2,2,'BAR-0525002','Paha',10,'Kg',100000,1000000);
 /*!40000 ALTER TABLE `barang_masuk_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +146,7 @@ CREATE TABLE `cost` (
   `nama` varchar(255) NOT NULL,
   `biaya` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +155,6 @@ CREATE TABLE `cost` (
 
 LOCK TABLES `cost` WRITE;
 /*!40000 ALTER TABLE `cost` DISABLE KEYS */;
-INSERT INTO `cost` VALUES (1,'Listrik',20000);
 /*!40000 ALTER TABLE `cost` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +175,7 @@ CREATE TABLE `gudang` (
   `harga_rata` bigint NOT NULL,
   `total_nilai_stok` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +184,6 @@ CREATE TABLE `gudang` (
 
 LOCK TABLES `gudang` WRITE;
 /*!40000 ALTER TABLE `gudang` DISABLE KEYS */;
-INSERT INTO `gudang` VALUES (1,'BAR-0525001','Kepala',NULL,0,'Kg',50000,0),(2,'BAR-0525002','Paha',NULL,8.5,'Kg',100000,850000);
 /*!40000 ALTER TABLE `gudang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +224,7 @@ CREATE TABLE `notifikasi` (
   `jatuh_tempo` date NOT NULL,
   `status` enum('pending','selesai') NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +233,6 @@ CREATE TABLE `notifikasi` (
 
 LOCK TABLES `notifikasi` WRITE;
 /*!40000 ALTER TABLE `notifikasi` DISABLE KEYS */;
-INSERT INTO `notifikasi` VALUES (1,9,'2025-02-14','selesai'),(2,1,'2025-03-29','selesai'),(3,2,'2025-05-12','pending'),(4,1,'2025-05-16','pending'),(5,2,'2025-05-16','pending'),(6,2,'2025-05-16','pending'),(7,3,'2025-05-15','selesai');
 /*!40000 ALTER TABLE `notifikasi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,17 +296,17 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nik` varchar(10) NOT NULL,
+  `nik` varchar(16) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
+  `alamat` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `telepon` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `level` varchar(25) NOT NULL DEFAULT 'member',
-  `foto` varchar(25) NOT NULL,
+  `foto` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `gaji` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +315,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (26,'1001','Admin','','08999444000','admin','21232f297a57a5a743894a0e4a801fc3','admin','teacher4.png',20000),(27,'10001','Gudang','','0986660000','gudang','202446dd1d6028084426867365b0c7a1','gudang','mahugi.jpg',NULL),(28,'123','Marketing','','083821198187','marketing','c769c2bd15500dd906102d9be97fdceb','marketing','DSC_0696.JPG',NULL),(30,'102938','Keuangan','-','08374627838','keuangan','a4151d4b2856ec63368a7c784b1f0a6e','keuangan','foto.jpg',NULL);
+INSERT INTO `users` VALUES (26,'1001','Admin','','08999444000','admin','21232f297a57a5a743894a0e4a801fc3','admin','teacher4.png',20000),(27,'10001','Gudang','','0986660000','gudang','202446dd1d6028084426867365b0c7a1','gudang','mahugi.jpg',NULL),(28,'123','Marketing','','083821198187','marketing','c769c2bd15500dd906102d9be97fdceb','marketing','DSC_0696.JPG',NULL),(30,'102938','Keuangan','-','08374627838','keuangan','a4151d4b2856ec63368a7c784b1f0a6e','keuangan','foto.jpg',NULL),(31,'1234567890123456','Marketing 2',NULL,'084837483443','marketing2','76f8a1ec8ad82c482628fc01cd00759d','marketing','Screenshot_20250513_160426.png',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-15 22:40:31
+-- Dump completed on 2025-05-31 12:44:14

@@ -22,7 +22,6 @@ $total_stok = $row['total_stok'];
               <th>No</th>
               <th>Kode Barang</th>
               <th>Nama Barang</th>
-              <th>Jenis Barang</th>
               <th>Jumlah Barang</th>
               <th>Satuan</th>
               <th>Harga Rata-Rata</th>
@@ -45,7 +44,6 @@ $total_stok = $row['total_stok'];
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $data['kode_barang'] ?></td>
                 <td><?php echo $data['nama_barang'] ?></td>
-                <td><?php echo $data['jenis_barang'] ?></td>
                 <td><?php echo $data['jumlah'] ?></td>
                 <td><?php echo $data['satuan'] ?></td>
                 <td><?php echo number_format($data['harga_rata'], 0, '', '.') ?></td>

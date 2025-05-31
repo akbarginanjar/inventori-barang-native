@@ -8,7 +8,11 @@ $dataUser = $sql->fetch_assoc();
 $current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 if ($dataUser['level'] != 'marketing') {
-  $query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar");
+  if ($current_page == 'feemarketing') {
+    $query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar");
+  } else {
+    $query = $koneksi->query("SELECT SUM(total_harga_barang) AS total FROM barang_keluar");
+  }
 } else {
   $query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar WHERE id_marketing='$dataUser[id]'");
 }
@@ -84,6 +88,7 @@ $total = $row['total'];
                     GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
               FROM barang_keluar bk
               LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+              WHERE bk.fee_marketing != 0
               GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.total_harga_barang ORDER BY bk.id DESC
           ");
             } else {
@@ -116,11 +121,19 @@ $total = $row['total'];
                   <a class="btn btn-warning" style="color:black;" data-toggle="modal" data-target="#detailBarang<?= $data['id'] ?>">
                     Detail Barang
                   </a>
-                  <?php if ($dataUser['level'] != 'marketing') { ?>
+                  <?php if ($dataUser['level'] != 'marketing') { 
+                      if ($current_page == "barangkeluar") {
+                    ?>
                     <a class="btn btn-success" style="color:black;" href="?page=barangkeluar&aksi=invoice&id_transaksi=<?= $data['id_transaksi'] ?>">
                       Invoice
                     </a>
-                  <?php } ?>
+                    <?php } else {
+                      ?>
+                      <a class="btn btn-success" style="color:black;" href="?page=feemarketing&aksi=invoice&id_transaksi=<?= $data['id_transaksi'] ?>">
+                        Invoice
+                      </a>
+                    <?php
+                  } } ?>
                   <div class="modal fade" id="detailBarang<?= $data['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">

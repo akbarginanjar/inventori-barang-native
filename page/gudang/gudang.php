@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION['admin']) {
   $user = $_SESSION['admin'];
+  
 }
 $sql = $koneksi->query("select * from users where id='$user'");
 $dataUser = $sql->fetch_assoc();

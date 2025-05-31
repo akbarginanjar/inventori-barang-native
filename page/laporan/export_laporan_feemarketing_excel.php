@@ -8,6 +8,10 @@ $koneksi = new mysqli("127.0.0.1", "root", "", "inventori");
 if ($_SESSION['marketing']) {
 	$user = $_SESSION['marketing'];
 }
+
+if ($_SESSION['admin']) {
+	$user = $_SESSION['admin'];
+}
 $sql = $koneksi->query("select * from users where id='$user'");
 $dataUser = $sql->fetch_assoc();
 
@@ -49,20 +53,36 @@ if (isset($_POST['submit'])) { ?>
 				<?php
 
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				
+				if ($dataUser['level'] == 'admin') {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				} else {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				}
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
 
-				$sql = $koneksi->query("
-				SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
-						GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
-				FROM barang_keluar bk
-				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-				where id_marketing='$dataUser[id]' AND
-				bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
-				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
-				");
+				if ($dataUser['level'] == 'admin') {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31' AND bk.fee_marketing != 0
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				} else {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where id_marketing='$dataUser[id]' AND
+					bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				}
 				while ($data = $sql->fetch_assoc()) {
 
 				?>
@@ -106,20 +126,34 @@ if (isset($_POST['submit'])) { ?>
 				<?php
 
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
-
+				if ($dataUser['level'] == 'admin') {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
+				} else {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
+				}
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
 
-				$sql = $koneksi->query("
-					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
-							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
-					FROM barang_keluar bk
-					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-					where id_marketing='$dataUser[id]' AND
-					MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'
-					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+				if ($dataUser['level'] == 'admin') {
+					$sql = $koneksi->query("
+						SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+								GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+						FROM barang_keluar bk
+						LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+						where MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn' AND bk.fee_marketing != 0
+						GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
 					");
+				} else {
+					$sql = $koneksi->query("
+						SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+								GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+						FROM barang_keluar bk
+						LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+						where id_marketing='$dataUser[id]' AND
+						MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'
+						GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				}
 				while ($data = $sql->fetch_assoc()) {
 
 				?>
@@ -177,20 +211,36 @@ if ($bln == 'all') {
 
 				<?php
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				if ($dataUser['level'] == 'admin') {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				} else {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'");
+				}
+
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
 
-				$sql = $koneksi->query("
-				SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
-						GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
-				FROM barang_keluar bk
-				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-				where id_marketing='$dataUser[id]' AND
-				bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
-				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
-				");
+				if ($dataUser['level'] == 'admin') {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31' AND bk.fee_marketing != 0
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				} else {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where id_marketing='$dataUser[id]' AND
+					bk.tanggal BETWEEN '$thn-01-01' AND '" . ($thn) . "-12-31'
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				}
 				while ($data = $sql->fetch_assoc()) {
 				?>
 
@@ -237,20 +287,36 @@ if ($bln == 'all') {
 
 				<?php
 				$no = 1;
-				$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
+				if ($dataUser['level'] == 'admin') {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
+				} else {
+					$query = $koneksi->query("SELECT SUM(fee_marketing) AS total FROM barang_keluar where id_marketing='$dataUser[id]' AND MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'");
+				}
 
 				$row = $query->fetch_assoc();
 				$total = $row['total'];
 
-				$sql = $koneksi->query("
-				SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
-						GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
-				FROM barang_keluar bk
-				LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
-				where id_marketing='$dataUser[id]' AND
-				MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'
-				GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
-				");
+				if ($dataUser['level'] == 'admin') {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn' AND bk.fee_marketing != 0
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+				} else {
+					$sql = $koneksi->query("
+					SELECT bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing,
+							GROUP_CONCAT(bki.nama_barang ORDER BY bki.id SEPARATOR ', ') AS nama_barang
+					FROM barang_keluar bk
+					LEFT JOIN barang_keluar_items bki ON bk.id = bki.id_barang_keluar
+					where id_marketing='$dataUser[id]' AND
+					MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn'
+					GROUP BY bk.id, bk.id_transaksi, bk.tanggal, bk.nama_konsumen, bk.fee_marketing
+					");
+					
+				}
 				while ($data = $sql->fetch_assoc()) {
 
 				?>
